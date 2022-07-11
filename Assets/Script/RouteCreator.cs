@@ -12,6 +12,7 @@ public class RouteCreator : MonoBehaviour
 {
     [SerializeField]
     public Route route;
+    [SerializeField]
     private string path;
 
     public void CreateRoute()
