@@ -4,13 +4,12 @@ using UnityEditor;
 [CustomEditor(typeof(RouteCreator)), ExecuteAlways]
 public class RouteEditor : Editor
 {
-    public RouteCreator creator;
+    /* public RouteCreator creator; */
     public Route route;
-    public PlayerController player;
 
     void OnSceneGUI()
     {
-        if (creator.route != null)
+        if (route != null)
         {
             Input();
             Draw();
@@ -26,7 +25,7 @@ public class RouteEditor : Editor
 
         if (shiftLeftClick)
         {
-            Undo.RecordObject(creator, "Add segment");
+            Undo.RecordObject(route, "Add segment");
             route.AddSegment(mousePos);
         }
     }
@@ -53,7 +52,7 @@ public class RouteEditor : Editor
             Vector3 pos = Handles.PositionHandle(current, Quaternion.identity);
             if (pos != current)
             {
-                Undo.RecordObject(creator, "Move object");
+                Undo.RecordObject(route, "Move object");
                 route.movePoint(i, pos);
             }
         }
@@ -63,29 +62,11 @@ public class RouteEditor : Editor
     public override void OnInspectorGUI()
     {
         DrawDefaultInspector();
-        RouteCreator creator = (RouteCreator)target;
 
         if (GUILayout.Button("Align"))
         {
-            creator.alignHorizontal();
+            route.alignHorizontal();
         }
-        if (GUILayout.Button("Save"))
-        {
-            creator.Save();
-        }
-    }
-
-    /// It loads the data when selecting the object for the first time
-    async void OnEnable()
-    {
-        creator = (RouteCreator)target;
-        Debug.Log("Awake");
-        if (creator.route == null)
-        {
-            Debug.Log("route loaded");
-            await creator.Load();
-        }
-        route = creator.route;
     }
 }
 
