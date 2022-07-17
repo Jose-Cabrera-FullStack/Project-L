@@ -3,8 +3,8 @@ using UnityEngine;
 using System;
 
 /// <summary>Bezier curve<summary>
-[Serializable]
-public class Route
+[Serializable, CreateAssetMenu]
+public class Route : ScriptableObject
 {
     [SerializeReference]
     /// <summary> List of points</summary>
@@ -85,6 +85,24 @@ public class Route
             {
                 controlPoints[i - 1] += deltaMove;
             }
+        }
+    }
+
+    public void alignHorizontal()
+    {
+
+        var sum = 0f;
+        for (int i = 0; i < len; i++)
+        {
+            sum += controlPoints[i].y;
+        }
+
+        sum = sum / len;
+
+        for (int i = 0; i < len; i++)
+        {
+            var current = controlPoints[i];
+            movePoint(i, new Vector3(current.x, sum, current.z));
         }
     }
 
