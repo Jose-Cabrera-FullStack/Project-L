@@ -16,13 +16,13 @@ public class Route : ScriptableObject
     public Route(Vector3 center)
     {
         controlPoints = new List<Vector3>{
-					              // punto  A
-                         center + Vector3.forward * scale,
-												// Handler del punto A en diagonal hacia arriba
-                         center + Vector3.left * scale + Vector3.forward,
-												// Handler del punto B en diagonal hacia abajo
+					            // punto  A
+                        center + Vector3.forward * scale,
+								// Handler del punto A en diagonal hacia arriba
+                        center + Vector3.left * scale + Vector3.forward,
+								// Handler del punto B en diagonal hacia abajo
                         center + Vector3.right * scale + Vector3.back,
-												// point B
+								// point B
                         center + Vector3.back * scale
         };
 
@@ -33,13 +33,13 @@ public class Route : ScriptableObject
         get => controlPoints[i];
     }
 
-    /// <summary> Number of Points </summary> 
+    /// <summary> Number of Points </summary>
     public int len => controlPoints.Count;
 
-    /// <summary> Adds a segment using 3 points: 
+    /// <summary> Adds a segment using 3 points:
     ///   <list>
     ///   a new handler for the last point
-    ///   handler of the new point (anchor) 
+    ///   handler of the new point (anchor)
     ///   the new point
     ///   </list>
     ///   </summary>
@@ -52,7 +52,7 @@ public class Route : ScriptableObject
         controlPoints.Add(last * 2 - secondLast);
         // The midpoint between the last point and the new one
         controlPoints.Add(last + anchor * .5f);
-        // The new point 
+        // The new point
         controlPoints.Add(anchor);
     }
 
@@ -128,7 +128,7 @@ public class Route : ScriptableObject
         return point;
     }
 
-    /// <summary>1st Derivate of bezier curve</summary>  
+    /// <summary>1st Derivate of bezier curve</summary>
     /// <returns> Speed <c>Vector3</c> at given point t E [1,0] </returns>
     public Vector3 getTanget(float input)
     {
