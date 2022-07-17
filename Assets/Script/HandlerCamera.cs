@@ -1,8 +1,8 @@
-/* using System.Collections; */
-/* using System.Collections.Generic; */
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class Camera : MonoBehaviour
+public class HandlerCamera : MonoBehaviour
 {
     public PlayerController controller;
     public RouteCreator creator;
@@ -10,7 +10,7 @@ public class Camera : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        distance = 10f;
     }
 
     // Update is called once per frame
