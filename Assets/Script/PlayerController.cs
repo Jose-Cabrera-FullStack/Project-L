@@ -28,7 +28,12 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        var input = Input.GetAxis("Horizontal") * speed;
+      HadlerMovement();
+    }
+
+    private void HadlerMovement()
+    {
+          var input = Input.GetAxis("Horizontal") * speed;
         t = Mathf.Clamp(t + input, 0, 1);
 
         direction = creator.route.getTanget(t) * Mathf.RoundToInt(Input.GetAxis("Horizontal"));
