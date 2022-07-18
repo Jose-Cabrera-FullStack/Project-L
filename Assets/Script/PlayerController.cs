@@ -28,10 +28,10 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-      HandlerMovement();
+      MovementHandler();
     }
 
-    private void HandlerMovement()
+    private void MovementHandler()
     {
           var input = Input.GetAxis("Horizontal") * speed;
         t = Mathf.Clamp(t + input, 0, 1);
