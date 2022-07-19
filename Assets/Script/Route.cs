@@ -70,7 +70,7 @@ public class Route : ScriptableObject
     }
 
     /// <summary> Move the selected Point </summary>
-    public void movePoint(int i, Vector3 pos)
+    public void MovePoint(int i, Vector3 pos)
     {
         Vector3 deltaMove = pos - controlPoints[i];
         controlPoints[i] = pos;
@@ -89,7 +89,7 @@ public class Route : ScriptableObject
         }
     }
 
-    public void alignHorizontal()
+    public void AlignHorizontal()
     {
         var sum = 0f;
         for (int i = 0; i < len; i++)
@@ -102,12 +102,12 @@ public class Route : ScriptableObject
         for (int i = 0; i < len; i++)
         {
             var current = controlPoints[i];
-            movePoint(i, new Vector3(current.x, sum, current.z));
+            MovePoint(i, new Vector3(current.x, sum, current.z));
         }
     }
 
     // <summary> Get current position from t value t E [0,1] </summary>
-    public Vector3 getPosition(float input)
+    public Vector3 GetPosition(float input)
     {
         /* int segmentIndex = Mathf.FloorToInt(input); */
         /* int pointIndex = segmentIndex * 3; */
@@ -133,7 +133,7 @@ public class Route : ScriptableObject
 
     /// <summary>1st Derivate of bezier curve</summary>
     /// <returns> Speed <c>Vector3</c> at given point t E [1,0] </returns>
-    public Vector3 getTanget(float input)
+    public Vector3 GetTanget(float input)
     {
         /* int segmentIndex = Mathf.FloorToInt(input); */
         /* int pointIndex = segmentIndex * 3; */
@@ -159,7 +159,7 @@ public class Route : ScriptableObject
         return tangent;
     }
 
-    public Vector3[] getSegmentFromIndex(int i)
+    public Vector3[] GetSegmentFromIndex(int i)
     {
         return new Vector3[]
         {
