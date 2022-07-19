@@ -20,20 +20,20 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        zooming();
-        position();
+        Zooming();
+        Position();
     }
 
-    private void position()
+    private void Position()
     {
         transform.LookAt(controller.transform.position);
         transform.position =
             controller.transform.position
             + distance
-                * Vector3.Cross(-creator.route.getTanget(controller.t), Vector3.up).normalized;
+                * Vector3.Cross(-creator.route.GetTanget(controller.t), Vector3.up).normalized;
     }
 
-    private void zooming()
+    private void Zooming()
     {
         if (Input.GetKey("i"))
         {

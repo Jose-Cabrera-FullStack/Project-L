@@ -33,7 +33,7 @@ public class RouteEditor : Editor
         // Render Curve
         for (int i = 0; i < route.segmentsLen; i++)
         {
-            var segment = route.getSegmentFromIndex(i);
+            var segment = route.GetSegmentFromIndex(i);
             Handles.DrawBezier(
                 segment[0],
                 segment[3],
@@ -58,7 +58,7 @@ public class RouteEditor : Editor
             if (pos != current)
             {
                 Undo.RecordObject(route, "Move object");
-                route.movePoint(i, pos);
+                route.MovePoint(i, pos);
             }
         }
     }
@@ -70,7 +70,7 @@ public class RouteEditor : Editor
 
         if (GUILayout.Button("Align"))
         {
-            route.alignHorizontal();
+            route.AlignHorizontal();
         }
     }
 }

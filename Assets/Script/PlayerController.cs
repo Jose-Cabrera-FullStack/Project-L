@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour
 
     private Vector3 direction;
     private Vector3 velocity;
-    Vector3 position => creator.route.getPosition(t);
+    Vector3 position => creator.route.GetPosition(t);
 
     void Start()
     {
@@ -37,7 +37,7 @@ public class PlayerController : MonoBehaviour
         t = Mathf.Clamp(t + input, 0, 1);
 
         var sign = Mathf.RoundToInt(Input.GetAxis("Horizontal"));
-        direction = creator.route.getTanget(t) * sign;
+        direction = creator.route.GetTanget(t) * sign;
 
         direction.Normalize();
 
