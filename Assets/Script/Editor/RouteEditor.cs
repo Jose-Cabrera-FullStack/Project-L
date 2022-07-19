@@ -1,19 +1,15 @@
 using UnityEngine;
 using UnityEditor;
 
-[CustomEditor(typeof(RouteCreator)), ExecuteAlways]
+[CustomEditor(typeof(RouteCreator))]
 public class RouteEditor : Editor
 {
-    /* public RouteCreator creator; */
     public Route route;
 
     void OnSceneGUI()
     {
-        if (route != null)
-        {
-            Input();
-            Draw();
-        }
+        Input();
+        Draw();
     }
 
     void Input()
@@ -21,7 +17,8 @@ public class RouteEditor : Editor
         Event guiEvent = Event.current;
         Vector3 mousePos = HandleUtility.GUIPointToWorldRay(guiEvent.mousePosition).origin;
 
-        bool shiftLeftClick = guiEvent.type == EventType.MouseDown && guiEvent.button == 0 && guiEvent.shift;
+        bool shiftLeftClick =
+            guiEvent.type == EventType.MouseDown && guiEvent.button == 0 && guiEvent.shift;
 
         if (shiftLeftClick)
         {
@@ -37,7 +34,15 @@ public class RouteEditor : Editor
         for (int i = 0; i < route.segmentsLen; i++)
         {
             var segment = route.getSegmentFromIndex(i);
-            Handles.DrawBezier(segment[0], segment[3], segment[1], segment[2], Color.green, null, 2);
+            Handles.DrawBezier(
+                segment[0],
+                segment[3],
+                segment[1],
+                segment[2],
+                Color.green,
+                null,
+                2
+            );
 
             Handles.color = Color.red;
             Handles.DrawAAPolyLine(segment[3], segment[2]);
@@ -69,4 +74,3 @@ public class RouteEditor : Editor
         }
     }
 }
-

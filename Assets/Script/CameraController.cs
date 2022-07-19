@@ -1,5 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
+/* using System.Collections; */
+/* using System.Collections.Generic; */
 using UnityEngine;
 
 public class CameraController : MonoBehaviour
@@ -27,7 +27,10 @@ public class CameraController : MonoBehaviour
     private void position()
     {
         transform.LookAt(controller.transform.position);
-        transform.position = controller.transform.position + distance * Vector3.Cross(-creator.route.getTanget(controller.t), Vector3.up).normalized;
+        transform.position =
+            controller.transform.position
+            + distance
+                * Vector3.Cross(-creator.route.getTanget(controller.t), Vector3.up).normalized;
     }
 
     private void zooming()
