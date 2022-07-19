@@ -9,23 +9,24 @@ public class Route : ScriptableObject
     [SerializeReference]
     /// <summary> List of points</summary>
     private List<Vector3> controlPoints;
+
     /// <summary>Scale for initial points relative to the center</summary>
     private int scale = 7;
 
     /// <summary>Creates a Route from a center point</summary>
     public Route(Vector3 center)
     {
-        controlPoints = new List<Vector3>{
-					            // punto  A
-                        center + Vector3.forward * scale,
-								// Handler del punto A en diagonal hacia arriba
-                        center + Vector3.left * scale + Vector3.forward,
-								// Handler del punto B en diagonal hacia abajo
-                        center + Vector3.right * scale + Vector3.back,
-								// point B
-                        center + Vector3.back * scale
+        controlPoints = new List<Vector3>
+        {
+            // punto  A
+            center + Vector3.forward * scale,
+            // Handler del punto A en diagonal hacia arriba
+            center + Vector3.left * scale + Vector3.forward,
+            // Handler del punto B en diagonal hacia abajo
+            center + Vector3.right * scale + Vector3.back,
+            // point B
+            center + Vector3.back * scale
         };
-
     }
 
     public Vector3 this[int i]
@@ -90,7 +91,6 @@ public class Route : ScriptableObject
 
     public void alignHorizontal()
     {
-
         var sum = 0f;
         for (int i = 0; i < len; i++)
         {
@@ -122,8 +122,11 @@ public class Route : ScriptableObject
         float bb2 = 3 * t * t * c;
         float bb3 = t * t * t;
 
-        Vector3 point = controlPoints[pointIndex + 0] * bb0 + controlPoints[pointIndex + 1] * bb1 + controlPoints[pointIndex + 2] * bb2 + controlPoints[pointIndex + 3] * bb3;
-
+        Vector3 point =
+            controlPoints[pointIndex + 0] * bb0
+            + controlPoints[pointIndex + 1] * bb1
+            + controlPoints[pointIndex + 2] * bb2
+            + controlPoints[pointIndex + 3] * bb3;
 
         return point;
     }
@@ -132,16 +135,21 @@ public class Route : ScriptableObject
     /// <returns> Speed <c>Vector3</c> at given point t E [1,0] </returns>
     public Vector3 getTanget(float input)
     {
-
         /* int segmentIndex = Mathf.FloorToInt(input); */
         /* int pointIndex = segmentIndex * 3; */
         /* float t = input - segmentIndex; */
         var pointIndex = 0;
         var t = input;
 
-        Vector3 q0 = controlPoints[pointIndex] + ((controlPoints[pointIndex + 1] - controlPoints[pointIndex]) * t);
-        Vector3 q1 = controlPoints[pointIndex + 1] + ((controlPoints[pointIndex + 2] - controlPoints[pointIndex + 1]) * t);
-        Vector3 q2 = controlPoints[pointIndex + 2] + ((controlPoints[pointIndex + 3] - controlPoints[pointIndex + 2]) * t);
+        Vector3 q0 =
+            controlPoints[pointIndex]
+            + ((controlPoints[pointIndex + 1] - controlPoints[pointIndex]) * t);
+        Vector3 q1 =
+            controlPoints[pointIndex + 1]
+            + ((controlPoints[pointIndex + 2] - controlPoints[pointIndex + 1]) * t);
+        Vector3 q2 =
+            controlPoints[pointIndex + 2]
+            + ((controlPoints[pointIndex + 3] - controlPoints[pointIndex + 2]) * t);
 
         Vector3 r0 = q0 + ((q1 - q0) * t);
         Vector3 r1 = q1 + ((q2 - q1) * t);
@@ -153,12 +161,12 @@ public class Route : ScriptableObject
 
     public Vector3[] getSegmentFromIndex(int i)
     {
-
-        return new Vector3[]{
-                    controlPoints[i*3 + 0],
-                    controlPoints[i*3 + 1],
-                    controlPoints[i*3 + 2],
-                    controlPoints[i*3 + 3]
+        return new Vector3[]
+        {
+            controlPoints[i * 3 + 0],
+            controlPoints[i * 3 + 1],
+            controlPoints[i * 3 + 2],
+            controlPoints[i * 3 + 3]
         };
     }
 }
