@@ -5,7 +5,6 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
     public PlayerController controller;
-    public RouteCreator creator;
     public float distance;
     public float zoomChangeAmount = 80f;
     public float minumunDistance = 10f;
@@ -27,10 +26,6 @@ public class CameraController : MonoBehaviour
     private void Position()
     {
         transform.LookAt(controller.transform.position);
-        transform.position =
-            controller.transform.position
-            + distance
-                * Vector3.Cross(-creator.route.GetTanget(controller.t), Vector3.up).normalized;
     }
 
     private void Zooming()
