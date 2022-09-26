@@ -7,6 +7,11 @@ public class PlayerController : MonoBehaviour
     public CharacterController player;
     public Vector3 playerInput;
     public float playerSpeed;
+    private Vector3 movePlayer;
+
+    public Camera mainCamera;
+    private Vector3 camForward;
+    private Vector3 camRight;
 
     void Start()
     {
@@ -22,6 +27,24 @@ public class PlayerController : MonoBehaviour
 
         playerInput = Vector3.ClampMagnitude(new Vector3(horizontalMove, 0, verticalMove), 1);
 
-        player.Move(playerInput * playerSpeed * Time.deltaTime);
+        camDirection();
+
+        movePlayer = playerInput.x * camRight + playerInput.z * camForward;
+
+        player.transform.LookAt(player.transform.position + movePlayer);
+
+        player.Move(movePlayer * playerSpeed * Time.deltaTime);
+    }
+
+    void camDirection()
+    {
+        camForward = mainCamera.transform.forward;
+        camRight = mainCamera.transform.right;
+
+        camForward.y = 0;
+        camRight.y = 0;
+
+        camForward = camForward.normalized;
+        camRight = camRight.normalized;
     }
 }
