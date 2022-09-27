@@ -1,43 +1,33 @@
-using System.Threading;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public float horizontalMove;
-    public float verticalMove;
-    public CharacterController player;
-    public Vector3 playerInput;
-    public float playerSpeed;
-    private Vector3 movePlayer;
-    public float gravity = 9.8f;
+    public CharacterController controller;
+    public float speed = 6f;
 
     public Camera mainCamera;
-    private Vector3 camForward;
-    private Vector3 camRight;
+    Vector3 camForward;
+    Vector3 camRight;
+    public float gravity = 9.8f;
 
-    void Start()
-    {
-        player = GetComponent<CharacterController>();
-        playerSpeed = 1f;
-    }
-
-    // Update is called once per frame
     void Update()
     {
-        horizontalMove = Input.GetAxis("Horizontal");
-        verticalMove = Input.GetAxis("Vertical");
+        float horizontal = Input.GetAxis("Horizontal");
+        float vertical = Input.GetAxis("Vertical");
 
-        playerInput = Vector3.ClampMagnitude(new Vector3(horizontalMove, 0, verticalMove), 1);
+        Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
+
+        direction.y = -gravity * Time.deltaTime;
 
         camDirection();
 
-        movePlayer = playerInput.x * camRight + playerInput.z * camForward;
-
-        setGravity();
-
-        player.transform.LookAt(player.transform.position + movePlayer);
-
-        player.Move(movePlayer * playerSpeed * Time.deltaTime);
+        if (direction.magnitude >= 0.1f)
+        {
+            Debug.Log(camRight);
+            Vector3 moveController = direction.x * camRight + direction.z * camForward;
+            controller.transform.LookAt(controller.transform.position + moveController);
+            controller.Move(direction * speed * Time.deltaTime);
+        }
     }
 
     void camDirection()
@@ -52,8 +42,4 @@ public class PlayerController : MonoBehaviour
         camRight = camRight.normalized;
     }
 
-    void setGravity()
-    {
-        movePlayer.y = -gravity * Time.deltaTime;
-    }
 }
