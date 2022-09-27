@@ -1,3 +1,4 @@
+using System.Threading;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -8,6 +9,7 @@ public class PlayerController : MonoBehaviour
     public Vector3 playerInput;
     public float playerSpeed;
     private Vector3 movePlayer;
+    public float gravity = 9.8f;
 
     public Camera mainCamera;
     private Vector3 camForward;
@@ -31,6 +33,8 @@ public class PlayerController : MonoBehaviour
 
         movePlayer = playerInput.x * camRight + playerInput.z * camForward;
 
+        setGravity();
+
         player.transform.LookAt(player.transform.position + movePlayer);
 
         player.Move(movePlayer * playerSpeed * Time.deltaTime);
@@ -46,5 +50,10 @@ public class PlayerController : MonoBehaviour
 
         camForward = camForward.normalized;
         camRight = camRight.normalized;
+    }
+
+    void setGravity()
+    {
+        movePlayer.y = -gravity * Time.deltaTime;
     }
 }
