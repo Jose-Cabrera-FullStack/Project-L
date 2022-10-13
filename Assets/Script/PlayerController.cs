@@ -1,56 +1,50 @@
-using System;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public CharacterController controller;
-    Vector3 playerVelocity;
-    public float speed = 6f;
-    public float JumpForce = 100.0f;
-    public float gravity = 9.8f;
+    public float speed;
+    public float rotationSpeed;
 
-    public Camera mainCamera;
-    Vector3 camForward;
-    Vector3 camRight;
+    private CharacterController characterController;
+    [SerializeField]
+    private float forceMagnitude;
+
+    void Start()
+    {
+        characterController = GetComponent<CharacterController>();
+        speed = 15f;
+        rotationSpeed = 600f;
+    }
 
     void Update()
     {
-        movement();
-    }
+        float horizontalInput = Input.GetAxis("Horizontal");
+        float verticalInput = Input.GetAxis("Vertical");
 
-    void movement()
-    {
-        float horizontal = Input.GetAxis("Horizontal");
-        float vertical = Input.GetAxis("Vertical");
+        Vector3 movementDirection = new Vector3(horizontalInput, 0, verticalInput);
+        float magnitude = Mathf.Clamp01(movementDirection.magnitude) * speed;
+        movementDirection.Normalize();
 
-        Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
-        direction.y += -gravity * Time.deltaTime;
+        characterController.SimpleMove(movementDirection * magnitude);
 
-        if(Input.GetKeyDown("space")){
-            // TODO: Needs to be improved
-            direction.y += Mathf.Sqrt(Math.Abs(JumpForce * -3.0f * gravity * Time.deltaTime));
-        }
-
-        camDirection();
-
-        if (direction.magnitude >= 0.1f)
+        if (movementDirection != Vector3.zero)
         {
-            Vector3 moveController = direction.x * camRight + direction.z * camForward;
-            controller.transform.LookAt(controller.transform.position + moveController);
-            controller.Move(direction * speed * Time.deltaTime);
+            Quaternion toRotation = Quaternion.LookRotation(movementDirection, Vector3.up);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);
         }
     }
 
-    void camDirection()
+    void OnControllerColliderHit(ControllerColliderHit hit)
     {
-        camForward = mainCamera.transform.forward;
-        camRight = mainCamera.transform.right;
+        Rigidbody rigidbody = hit.collider.attachedRigidbody;
+        forceMagnitude = 10f;
+        if(rigidbody != null)
+        {
+            Vector3 forceDirection = hit.gameObject.transform.position - transform.position;
+            forceDirection.y = 0;
+            forceDirection.Normalize();
 
-        camForward.y = 0;
-        camRight.y = 0;
-
-        camForward = camForward.normalized;
-        camRight = camRight.normalized;
+            rigidbody.AddForceAtPosition(forceDirection * forceMagnitude, transform.position, ForceMode.Impulse);
+        }
     }
-
 }
