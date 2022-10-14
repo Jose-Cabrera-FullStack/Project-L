@@ -4,34 +4,43 @@ public class PlayerController : MonoBehaviour
 {
     public float speed;
     public float rotationSpeed;
+    public int jumpSpeed;
+    public float gravity = -20f;
 
-    private CharacterController characterController;
+    CharacterController characterController;
+    Vector3 moveVelocity;
+    Vector3 turnVelocity;
+
     [SerializeField]
-    private float forceMagnitude;
+    float forceMagnitude;
 
     void Start()
     {
         characterController = GetComponent<CharacterController>();
         speed = 15f;
         rotationSpeed = 600f;
+        jumpSpeed = 5;
     }
 
     void Update()
     {
-        float horizontalInput = Input.GetAxis("Horizontal");
-        float verticalInput = Input.GetAxis("Vertical");
+        float hInput = Input.GetAxis("Horizontal");
+        float vInput = Input.GetAxis("Vertical");
 
-        Vector3 movementDirection = new Vector3(horizontalInput, 0, verticalInput);
-        float magnitude = Mathf.Clamp01(movementDirection.magnitude) * speed;
-        movementDirection.Normalize();
-
-        characterController.SimpleMove(movementDirection * magnitude);
-
-        if (movementDirection != Vector3.zero)
+        if(characterController.isGrounded)
         {
-            Quaternion toRotation = Quaternion.LookRotation(movementDirection, Vector3.up);
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);
+            moveVelocity = transform.forward * speed * vInput;
+            turnVelocity = transform.up * rotationSpeed * hInput;
+
+            if(Input.GetButtonDown("Jump"))
+            {
+                moveVelocity.y = jumpSpeed;
+            }
         }
+
+        moveVelocity.y += gravity * Time.deltaTime;
+        characterController.Move(moveVelocity * Time.deltaTime);
+        transform.Rotate(turnVelocity * Time.deltaTime);
     }
 
     void OnControllerColliderHit(ControllerColliderHit hit)
