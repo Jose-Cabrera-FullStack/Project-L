@@ -516,11 +516,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f4f3d1743f184f41afa6cbfe429c2ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 6
-  rotationSpeed: 0
-  jumpSpeed: 0
-  gravity: -20
-  forceMagnitude: 0
 --- !u!114 &579296667
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -533,7 +528,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf38a32f70b277741948fcb052b0b825, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inputEnabled: 0
+  _inputEnabled: 1
 --- !u!195 &579296668
 NavMeshAgent:
   m_ObjectHideFlags: 0
