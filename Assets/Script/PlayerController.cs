@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     float forceMagnitude;
 
-    void Start() 
+    void Start()
     {
         characterController = GetComponent<CharacterController>();
         speed = 15f;
@@ -27,27 +27,41 @@ public class PlayerController : MonoBehaviour
         float hInput = Input.GetAxis("Horizontal");
         float vInput = Input.GetAxis("Vertical");
 
-        if(characterController.isGrounded)
+        if (characterController.isGrounded)
         {
             moveVelocity = transform.forward * speed * vInput;
             turnVelocity = transform.up * rotationSpeed * hInput;
 
-            if(Input.GetButtonDown("Jump"))
+            if (Input.GetButtonDown("Jump"))
             {
                 moveVelocity.y = jumpSpeed;
             }
         }
+        switchCamera();
 
         moveVelocity.y += gravity * Time.deltaTime;
         characterController.Move(moveVelocity * Time.deltaTime);
         transform.Rotate(turnVelocity * Time.deltaTime);
     }
 
+    void switchCamera()
+    {
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            CameraSwitcher.SwitchCamera(true);
+        }
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            CameraSwitcher.SwitchCamera(false);
+        }
+    }
+
     void OnControllerColliderHit(ControllerColliderHit hit)
     {
         Rigidbody rigidbody = hit.collider.attachedRigidbody;
         forceMagnitude = 10f;
-        if(rigidbody != null)
+        if (rigidbody != null)
         {
             Vector3 forceDirection = hit.gameObject.transform.position - transform.position;
             forceDirection.y = 0;

@@ -5,7 +5,7 @@ using Cinemachine;
 
 public static class CameraSwitcher
 {
-    static List<CinemachineVirtualCamera> cameras = new List<CinemachineVirtualCamera>();
+    public static List<CinemachineVirtualCamera> cameras = new List<CinemachineVirtualCamera>();
 
     public static CinemachineVirtualCamera ActiveCamera = null;
 
@@ -14,10 +14,16 @@ public static class CameraSwitcher
         return camera == ActiveCamera;
     }
 
-    public static void SwitchCamera(CinemachineVirtualCamera camera)
+    public static void SwitchCamera(bool isNext)
     {
+        CinemachineVirtualCamera camera = cameras.Find(camera => camera.Priority == 10);
+        if (!camera) camera = cameras[0];
+
+        if(isNext) {camera = cameras[1];}else{camera = cameras[0];}
+
         camera.Priority = 10;
         ActiveCamera = camera;
+        Debug.Log("Total: " + cameras);
 
         foreach (CinemachineVirtualCamera c in cameras)
         {

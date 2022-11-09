@@ -27,11 +27,4 @@ public class CameraTriggerVolume : MonoBehaviour
         Gizmos.DrawWireCube(transform.position, boxSize);
     }
 
-    void OnTriggerEnter(Collider other)
-    {
-        if(other.gameObject.CompareTag("Player"))
-        {
-            if(CameraSwitcher.ActiveCamera != cam) CameraSwitcher.SwitchCamera(cam);
-        }
-    }
 }
