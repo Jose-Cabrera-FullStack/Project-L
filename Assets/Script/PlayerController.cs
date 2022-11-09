@@ -1,59 +1,52 @@
 using UnityEngine;
-[RequireComponent(typeof(PlayerInput))]
-[RequireComponent(typeof(UnityEngine.AI.NavMeshAgent))]
+
 public class PlayerController : MonoBehaviour
 {
-    UnityEngine.AI.NavMeshAgent _navMeshAgent;
-    PlayerInput _playerInput;
-    Vector3 _destinationPoint;
+    public float speed;
+    public float rotationSpeed;
+    public int jumpSpeed;
+    public float gravity = -20f;
 
-    public Vector3 destinationPoint
+    CharacterController characterController;
+    Vector3 moveVelocity;
+    Vector3 turnVelocity;
+
+    [SerializeField]
+    float forceMagnitude;
+
+    void Start() 
     {
-        get
-        {
-            return _destinationPoint;
-        }
-        set
-        {
-            _destinationPoint = value;
-        }
-    }
-
-    Animator _animator;
-    Vector3 _velocity;
-    Vector3 _localVelocity;
-    float _speed;
-    readonly int hashHorizontalSpeed = Animator.StringToHash("HorizontalSpeed");
-
-    void Start() {
-        if(!TryGetComponent(out _playerInput))
-        {
-            Debug.LogWarning($"ERROR FALTA DE PLAYER INPUT");
-        }
-        if(!TryGetComponent(out _navMeshAgent))
-        {
-            Debug.LogWarning($"ERROR FALTA DE NAVMESH AGENT");
-        }
-        _destinationPoint = transform.position;
+        characterController = GetComponent<CharacterController>();
+        speed = 15f;
+        rotationSpeed = 600f;
+        jumpSpeed = 5;
     }
 
     void Update()
     {
-        _navMeshAgent.SetDestination(_destinationPoint);
-    }
+        float hInput = Input.GetAxis("Horizontal");
+        float vInput = Input.GetAxis("Vertical");
 
-    void OnAnimatorMove()
-    {
-        _velocity = _navMeshAgent.velocity;
-        _localVelocity = transform.InverseTransformDirection(_velocity);
-        _speed = _localVelocity.z;
-        _animator.SetFloat(hashHorizontalSpeed, _speed);
+        if(characterController.isGrounded)
+        {
+            moveVelocity = transform.forward * speed * vInput;
+            turnVelocity = transform.up * rotationSpeed * hInput;
+
+            if(Input.GetButtonDown("Jump"))
+            {
+                moveVelocity.y = jumpSpeed;
+            }
+        }
+
+        moveVelocity.y += gravity * Time.deltaTime;
+        characterController.Move(moveVelocity * Time.deltaTime);
+        transform.Rotate(turnVelocity * Time.deltaTime);
     }
 
     void OnControllerColliderHit(ControllerColliderHit hit)
     {
         Rigidbody rigidbody = hit.collider.attachedRigidbody;
-        float forceMagnitude = 10f;
+        forceMagnitude = 10f;
         if(rigidbody != null)
         {
             Vector3 forceDirection = hit.gameObject.transform.position - transform.position;
