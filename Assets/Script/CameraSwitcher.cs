@@ -9,6 +9,9 @@ public static class CameraSwitcher
 
     public static CinemachineVirtualCamera ActiveCamera = null;
 
+    // static CinemachineVirtualCamera nextCamera = null;
+    // static CinemachineVirtualCamera prevCamera = null;
+
     public static bool isActiveCamera(CinemachineVirtualCamera camera)
     {
         return camera == ActiveCamera;
@@ -16,14 +19,21 @@ public static class CameraSwitcher
 
     public static void SwitchCamera(bool isNext)
     {
-        CinemachineVirtualCamera camera = cameras.Find(camera => camera.Priority == 10);
-        if (!camera) camera = cameras[0];
+        int cameraIndex = cameras.FindIndex(camera => camera.Priority == 10);
+        CinemachineVirtualCamera camera;
+        if (cameraIndex == 0) camera = cameras[0];
 
-        if(isNext) {camera = cameras[1];}else{camera = cameras[0];}
+        if (isNext)
+        {
+            camera = cameraIndex + 1 < cameras.Count ? cameras[cameraIndex + 1] : cameras[0];
+        }
+        else
+        {
+            camera = cameraIndex - 1 >= 0 ? cameras[cameraIndex - 1] : cameras[^1];
+        }
 
         camera.Priority = 10;
         ActiveCamera = camera;
-        Debug.Log("Total: " + cameras);
 
         foreach (CinemachineVirtualCamera c in cameras)
         {
@@ -37,12 +47,10 @@ public static class CameraSwitcher
     public static void Register(CinemachineVirtualCamera camera)
     {
         cameras.Add(camera);
-        Debug.Log("Camera registered: " + camera);
     }
 
     public static void Unregister(CinemachineVirtualCamera camera)
     {
         cameras.Remove(camera);
-        Debug.Log("Camera unregistered: " + camera);
     }
 }
