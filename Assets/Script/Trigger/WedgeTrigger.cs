@@ -13,9 +13,6 @@ public class WedgeTrigger : MonoBehaviour
     float FovRad => fovDeg * Mathf.Deg2Rad;
     float AngThresh => Mathf.Cos(FovRad / 2);
 
-    /// <summary>
-    /// This code is Cheaper than code commented below.
-    /// </summary>
     private void OnDrawGizmos()
     {
         Gizmos.matrix = Handles.matrix = transform.localToWorldMatrix;
