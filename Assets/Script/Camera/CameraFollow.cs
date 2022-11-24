@@ -8,16 +8,14 @@ public class CameraFollow : MonoBehaviour
     public WedgeTrigger trigger;
     public Transform target;
     public Transform cam;
-    public float smoothingFactor = 1f;
 
-    // void Start()
-    // {
+    /// <summary>
+    /// smoothingFactor is velocity to rotate to the target.
+    /// </summary>
+    public float smoothingFactor = 1f;
 
     // TODO: Define position to the camera at the start.
 
-    //     transform.position = new Vector3(transform.position.x, transform.position.y + (trigger.height / 2), transform.position.z);
-    //     transform.rotation = trigger.transform.rotation;
-    // }
     void Update()
     {
         if (trigger.isContains(target.position))
