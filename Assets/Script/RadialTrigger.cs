@@ -26,12 +26,9 @@ public class RadialTrigger : MonoBehaviour
         Gizmos.DrawSphere(transform.position, 1);
 
         float distance = Vector3.Distance(playerPosition, transform.position);
-        Debug.Log($"{playerPosition.normalized}");
 
         Gizmos.color = distance > radius ? Color.red : Color.blue;
         Gizmos.DrawWireSphere(transform.position, radius);
-
-        Debug.Log($"dist:{distance}");
 
     }
 }

@@ -9,8 +9,13 @@ public static class CameraSwitcher
 
     public static CinemachineVirtualCamera ActiveCamera = null;
 
-    // static CinemachineVirtualCamera nextCamera = null;
-    // static CinemachineVirtualCamera prevCamera = null;
+    static CinemachineVirtualCamera selectedCamera = null;
+
+    static private void Update()
+    {
+        // TODO: Need to change to a single call operation.
+        selectedCamera = cameras[0];
+    }
 
     public static bool isActiveCamera(CinemachineVirtualCamera camera)
     {
@@ -20,24 +25,22 @@ public static class CameraSwitcher
     public static void SwitchCamera(bool isNext)
     {
         int cameraIndex = cameras.FindIndex(camera => camera.Priority == 10);
-        CinemachineVirtualCamera camera;
-        if (cameraIndex == 0) camera = cameras[0];
 
         if (isNext)
         {
-            camera = cameraIndex + 1 < cameras.Count ? cameras[cameraIndex + 1] : cameras[0];
+            selectedCamera = cameraIndex + 1 < cameras.Count ? cameras[cameraIndex + 1] : cameras[0];
         }
         else
         {
-            camera = cameraIndex - 1 >= 0 ? cameras[cameraIndex - 1] : cameras[^1];
+            selectedCamera = cameraIndex - 1 >= 0 ? cameras[cameraIndex - 1] : cameras[^1];
         }
 
-        camera.Priority = 10;
-        ActiveCamera = camera;
+        selectedCamera.Priority = 10;
+        ActiveCamera = selectedCamera;
 
         foreach (CinemachineVirtualCamera c in cameras)
         {
-            if (c != camera && c.Priority != 0)
+            if (c != selectedCamera && c.Priority != 0)
             {
                 c.Priority = 0;
             }
