@@ -3,13 +3,25 @@ using Cinemachine;
 
 public class CameraRegister : MonoBehaviour
 {
+    CinemachineVirtualCamera vcamera;
+    Transform parent;
+    Camera cam;
+
+    void Awake()
+    {
+        vcamera = GetComponent<CinemachineVirtualCamera>();
+        parent = vcamera.transform.parent;
+        cam = parent.GetComponentInChildren<Camera>();
+    }
+
     void OnEnable()
     {
-        CameraSwitcher.Register(GetComponent<CinemachineVirtualCamera>());
+
+        CameraSwitcher.Register(vcamera, cam);
     }
 
     void OnDisable()
     {
-        CameraSwitcher.Unregister(GetComponent<CinemachineVirtualCamera>());
+        CameraSwitcher.Unregister(vcamera, cam);
     }
 }

@@ -25,25 +25,29 @@ public class CameraLayout : MonoBehaviour
 
     void Update()
     {
-        // cam.rect = new Rect(margin, 0.0f, 1.0f - margin * 2.0f, 1.0f);
+        switchLayoutPosition();
+    }
+    public void switchLayoutPosition()
+    {
+        // // cam.rect = new Rect(margin, 0.0f, 1.0f - margin * 2.0f, 1.0f);
 
-        // TODO: Needs to inverse behavior
-        if (vcam.Priority == 10 && !_isChanged)
-        {
-            textComponent.SetText("Camera Selected");
-            Debug.Log($"Initial rect: {cam.rect}");
-            cam.rect = new Rect(margin, 0.0f, 1.0f - margin * 2.0f, 1.0f);
-            Debug.Log($"New rect: {cam.rect}");
-            _isChanged = true;
-            // cam.enabled = false;
-        }
-        else
-        {
-            textComponent.SetText("");
-            cam.rect = _initialCamState;
-            _isChanged = false;
+        // // TODO: Needs to inverse behavior
+        // if (vcam.Priority == 10 && !_isChanged)
+        // {
+        //     textComponent.SetText("Camera Selected");
+        //     Debug.Log($"Initial rect: {cam.rect}");
+        //     cam.rect = new Rect(margin, 0.0f, 1.0f - margin * 2.0f, 1.0f);
+        //     Debug.Log($"New rect: {cam.rect}");
+        //     _isChanged = true;
+        //     // cam.enabled = false;
+        // }
+        // else
+        // {
+        //     textComponent.SetText("");
+        //     cam.rect = _initialCamState;
+        //     _isChanged = false;
 
-            // cam.enabled = true;
-        }
+        //     // cam.enabled = true;
+        // }
     }
 }
