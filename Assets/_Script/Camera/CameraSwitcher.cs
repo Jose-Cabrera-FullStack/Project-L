@@ -28,6 +28,7 @@ public static class CameraSwitcher
         // Select the next camera or the first one in the cameras list.
         selectedCamera = cameraIndex + 1 < cameras.Count ? cameras[cameraIndex + 1] : cameras[0];
         SwitchCamera();
+        // CameraLayout.switchLayoutPosition();
     }
 
     public static void PrevCamera()
