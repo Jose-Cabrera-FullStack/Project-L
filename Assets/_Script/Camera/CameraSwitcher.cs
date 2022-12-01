@@ -3,90 +3,77 @@ using UnityEngine;
 using Cinemachine;
 using TMPro;
 
+public class CameraObject
+{
+    public CinemachineVirtualCamera virtualCam;
+    public Camera cam;
+    public CameraObject(CinemachineVirtualCamera vcam, Camera camera)
+    {
+        virtualCam = vcam;
+        cam = camera;
+    }
+}
 
 public static class CameraSwitcher
 {
-    public static List<CinemachineVirtualCamera> vcameras = new List<CinemachineVirtualCamera>();
-    public static List<Camera> cameras = new List<Camera>();
-
-    static CinemachineVirtualCamera selectedVCamera = null;
-    static Camera selectedCamera = null;
+    public static List<CameraObject> cameras = new List<CameraObject>();
+    static CameraObject selectedCamera = null;
     static int cameraIndex = 0;
-
-    class CameraObject
-    {
-        public CinemachineVirtualCamera virtualCam;
-        public Camera cam;
-        public CameraObject(CinemachineVirtualCamera vcam, Camera camera)
-        {
-            virtualCam = vcam;
-            cam = camera;
-        }
-    }
-
-    // static CameraObject mcs = new CameraObject("FooBar");
 
     public static void NextCamera()
     {
-        // Select the next vcamera or the first one in the vcameras list.
-        selectedVCamera = cameraIndex + 1 < vcameras.Count ? vcameras[cameraIndex + 1] : vcameras[0];
+        // Select the next vcamera or the first one in the cameras list.
         selectedCamera = cameraIndex + 1 < cameras.Count ? cameras[cameraIndex + 1] : cameras[0];
         SwitchCamera();
     }
 
     public static void PrevCamera()
     {
-        // Select the previus vcamera or the last one in the vcameras list.
-        selectedVCamera = cameraIndex - 1 >= 0 ? vcameras[cameraIndex - 1] : vcameras[^1];
+        // Select the previus vcamera or the last one in the cameras list.
         selectedCamera = cameraIndex - 1 >= 0 ? cameras[cameraIndex - 1] : cameras[^1];
         SwitchCamera();
     }
 
     static void SwitchCamera()
     {
-        cameraIndex = vcameras.FindIndex(vcamera => selectedVCamera == vcamera);
+        cameraIndex = cameras.FindIndex(vcamera => selectedCamera == vcamera);
 
-        selectedVCamera.Priority = 10;
+        selectedCamera.virtualCam.Priority = 10;
+        changeLayout();
 
-        foreach (CinemachineVirtualCamera c in vcameras)
+        foreach (CameraObject c in cameras)
         {
-            if (c != selectedVCamera && c.Priority != 0)
+            var index = cameras.IndexOf(c);
+
+            Debug.Log($"Camera {index}:{c.virtualCam.Priority}");
+            if (c != selectedCamera && c.virtualCam.Priority != 0)
             {
-                c.Priority = 0;
-                changeLayout(false);
-            }
-            else
-            {
-                changeLayout(true);
+                c.virtualCam.Priority = 0;
+                TextMeshProUGUI screenText = c.cam.GetComponentInChildren<TextMeshProUGUI>();
+                screenText.SetText("");
             }
         }
 
     }
 
-    static void changeLayout(bool isSelected)
+    static void changeLayout()
     {
-        TextMeshProUGUI screenText = selectedCamera.GetComponentInChildren<TextMeshProUGUI>();
-        if (isSelected)
+        TextMeshProUGUI screenText = selectedCamera.cam.GetComponentInChildren<TextMeshProUGUI>();
+        if (selectedCamera.virtualCam.Priority == 10)
         {
             screenText.SetText("Selected");
             // selectedCamera.rect = new Rect(1.0f, 0.0f, 1.0f - 0.5f * 2.0f, 1.0f);
             Debug.Log($"layout changed");
         }
-        else
-        {
-            screenText.SetText("");
-        }
     }
 
-    public static void Register(CinemachineVirtualCamera vcamera, Camera camera)
+    public static void Register(CameraObject camObj)
     {
-        vcameras.Add(vcamera);
-        cameras.Add(camera);
+        cameras.Add(camObj);
     }
 
-    public static void Unregister(CinemachineVirtualCamera vcamera, Camera camera)
+    public static void Unregister(CameraObject camObj)
     {
-        vcameras.Remove(vcamera);
-        cameras.Remove(camera);
+        cameras.Remove(camObj);
     }
 }
