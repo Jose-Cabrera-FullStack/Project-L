@@ -63,6 +63,8 @@ public static class CameraSwitcher
         {
             screenText.SetText("Selected");
             // selectedCamera.rect = new Rect(1.0f, 0.0f, 1.0f - 0.5f * 2.0f, 1.0f);
+            //  Camera.main.rect = new Rect (0, 0, 1, 1);
+
             Debug.Log($"layout changed");
         }
     }
