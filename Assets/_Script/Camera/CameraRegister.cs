@@ -16,11 +16,11 @@ public class CameraRegister : MonoBehaviour
 
     void OnEnable()
     {
-        CameraSwitcher.Register(new CameraObject(vcamera, cam));
+        CameraManager.Register(cam);
     }
 
     void OnDisable()
     {
-        CameraSwitcher.Unregister(new CameraObject(vcamera, cam));
+        CameraManager.Unregister(cam);
     }
 }

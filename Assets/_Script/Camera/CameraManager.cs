@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
-using TMPro;
 
 public class CameraObject
 {
@@ -14,31 +13,30 @@ public class CameraObject
     }
 }
 
-// #TODO: rename to a CameraManager
-public static class CameraSwitcher
+public static class CameraManager
 {
-    public static List<CameraObject> cameras = new List<CameraObject>();
-    static CameraObject selectedCamera = null;
+    public static List<Camera> cameras = new List<Camera>();
+    static Camera selectedCamera = null;
     static int cameraIndex = 0;
 
     public static void NextCamera()
     {
         // Select the next vcamera or the first one in the cameras list.
         selectedCamera = cameraIndex + 1 < cameras.Count ? cameras[cameraIndex + 1] : cameras[0];
-        SwitchCamera();
+        switchCamera();
     }
 
     public static void PrevCamera()
     {
         // Select the previus vcamera or the last one in the cameras list.
         selectedCamera = cameraIndex - 1 >= 0 ? cameras[cameraIndex - 1] : cameras[^1];
-        SwitchCamera();
+        switchCamera();
     }
 
-    static void SwitchCamera()
+    static void switchCamera()
     {
         cameraIndex = cameras.FindIndex(vcamera => selectedCamera == vcamera);
-        selectedCamera.virtualCam.Priority = 10;
+        selectedCamera.depth = 10;
         changeLayout();
     }
 
@@ -48,24 +46,24 @@ public static class CameraSwitcher
         int unselectedCameras = cameras.Count - 1;
         float split = (float)1 / (unselectedCameras);
 
-        foreach (CameraObject camera in cameras)
+        foreach (Camera camera in cameras)
         {
 
-            if (camera != selectedCamera && camera.virtualCam.Priority != 0)
+            if (camera != selectedCamera && camera.depth != 0)
             {
                 /// <summary>
                 /// Aqui esta la camara que pasa de estar seleccionada a no estarla.
                 /// </summary>
-                camera.virtualCam.Priority = 0;
-                camera.cam.rect = new Rect(0, (float)(unselectedCameras - 1) / unselectedCameras, 0.5f, split);
+                camera.depth = 0;
+                camera.rect = new Rect(0, (float)(unselectedCameras - 1) / unselectedCameras, 0.5f, split);
 
             }
-            else if (camera != selectedCamera && camera.virtualCam.Priority == 0)
+            else if (camera != selectedCamera && camera.depth == 0)
             {
                 /// <summary>
                 /// Todas las camaras no selecionadas.
                 /// </summary>
-                camera.cam.rect = new Rect(0, split * counter, 0.5f, split);
+                camera.rect = new Rect(0, split * counter, 0.5f, split);
                 counter = counter + 1;
             }
             else
@@ -73,19 +71,19 @@ public static class CameraSwitcher
                 /// <summary>
                 /// Aqui esta la camara seleccionada.
                 /// </summary>
-                camera.cam.rect = new Rect(0.5f, 0, 0.5f, 1);
+                camera.rect = new Rect(0.5f, 0, 0.5f, 1);
             }
 
         }
     }
 
-    public static void Register(CameraObject camObj)
+    public static void Register(Camera camera)
     {
-        cameras.Add(camObj);
+        cameras.Add(camera);
     }
 
-    public static void Unregister(CameraObject camObj)
+    public static void Unregister(Camera camera)
     {
-        cameras.Remove(camObj);
+        cameras.Remove(camera);
     }
 }

@@ -48,12 +48,12 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            CameraSwitcher.NextCamera();
+            CameraManager.NextCamera();
         }
 
         if (Input.GetKeyDown(KeyCode.E))
         {
-            CameraSwitcher.PrevCamera();
+            CameraManager.PrevCamera();
         }
     }
 

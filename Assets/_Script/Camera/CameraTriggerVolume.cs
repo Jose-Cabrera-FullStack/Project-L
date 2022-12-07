@@ -7,7 +7,6 @@ using Cinemachine;
 [RequireComponent(typeof(Rigidbody))]
 public class CameraTriggerVolume : MonoBehaviour
 {
-    [SerializeField] CinemachineVirtualCamera cam;
     [SerializeField] Vector3 boxSize;
     BoxCollider box;
     Rigidbody rb;
