@@ -38,59 +38,44 @@ public static class CameraSwitcher
     static void SwitchCamera()
     {
         cameraIndex = cameras.FindIndex(vcamera => selectedCamera == vcamera);
-        Debug.Log($"cameraIndex:{cameraIndex}");
-
         selectedCamera.virtualCam.Priority = 10;
-        int counter = 1; // Contador para la division para la position en y (0.25, 0.5, 0.75)
-        int counter2 = 0; // contador para inicializar en la position 0
+        changeLayout();
+    }
+
+    static void changeLayout()
+    {
+        int counter = 0; // Contador para la division para la position en y (0.25, 0.5, 0.75)
+        int unselectedCameras = cameras.Count - 1;
+        float split = (float)1 / (unselectedCameras);
 
         foreach (CameraObject camera in cameras)
         {
-            float split = (float)1 / ((cameras.Count - 1) * counter);
 
             if (camera != selectedCamera && camera.virtualCam.Priority != 0)
             {
-
+                /// <summary>
+                /// Aqui esta la camara que pasa de estar seleccionada a no estarla.
+                /// </summary>
                 camera.virtualCam.Priority = 0;
-                TextMeshProUGUI screenText = camera.cam.GetComponentInChildren<TextMeshProUGUI>();
-                // screenText.SetText($"{cameras.Count}"); Falta arreglar cosas Camera 2
+                camera.cam.rect = new Rect(0, (float)(unselectedCameras - 1) / unselectedCameras, 0.5f, split);
 
-                // Debug.Log($"split:{split}");
-                // Debug.Log($"counter:{counter}");
-                // Debug.Log($"counter2:{counter2}");
-                camera.cam.rect = new Rect(0, 0.5f, split * counter, split * counter);
-                // counter = counter + 1;
             }
             else if (camera != selectedCamera && camera.virtualCam.Priority == 0)
             {
-                camera.cam.rect = new Rect(0, split * counter2, split, split);
-                // counter2 = counter2 + 1;
+                /// <summary>
+                /// Todas las camaras no selecionadas.
+                /// </summary>
+                camera.cam.rect = new Rect(0, split * counter, 0.5f, split);
                 counter = counter + 1;
-
             }
             else
             {
-                camSelectedLayout(camera);
+                /// <summary>
+                /// Aqui esta la camara seleccionada.
+                /// </summary>
+                camera.cam.rect = new Rect(0.5f, 0, 0.5f, 1);
             }
 
-        }
-
-    }
-
-    static void camSelectedLayout(CameraObject cameraObj)
-    {
-        TextMeshProUGUI screenText = cameraObj.cam.GetComponentInChildren<TextMeshProUGUI>();
-        cameraObj.cam.rect = new Rect(0.5f, 0, 0.5f, 1);
-        if (cameraObj.virtualCam.Priority == 10)
-        {
-            // screenText.SetText($"Soy la seleccionada");
-            // if (cameraObj.cam.rect.x == -0.5f)
-
-            // Left side
-            // Rect(0, aqui, aqui, 0);
-
-            // Right side (selected camera)
-            // Rect(0.5, 0, 0.5, 1);
         }
     }
 
