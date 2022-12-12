@@ -2,8 +2,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(BoxCollider))]
 [RequireComponent(typeof(Rigidbody))]
-// TODO: change naming to RectangleTrigger
-public class CameraTriggerVolume : MonoBehaviour
+public class RectangleTrigger : MonoBehaviour
 {
     [SerializeField] Vector3 boxSize;
     BoxCollider box;

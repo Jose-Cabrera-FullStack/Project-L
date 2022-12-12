@@ -3,7 +3,7 @@ using UnityEngine;
 public class CameraFollow : MonoBehaviour
 {
     // Update is called once per frame
-    public CameraTriggerVolume trigger;
+    public RectangleTrigger trigger;
     Transform target;
     public Transform cam;
 
