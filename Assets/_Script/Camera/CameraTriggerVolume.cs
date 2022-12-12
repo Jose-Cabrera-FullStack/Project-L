@@ -2,12 +2,13 @@ using UnityEngine;
 
 [RequireComponent(typeof(BoxCollider))]
 [RequireComponent(typeof(Rigidbody))]
+// TODO: change naming to RectangleTrigger
 public class CameraTriggerVolume : MonoBehaviour
 {
     [SerializeField] Vector3 boxSize;
     BoxCollider box;
     Rigidbody rb;
-
+    public bool isDetecting = true;
     public bool isContains = false;
 
     void Awake()
@@ -32,8 +33,11 @@ public class CameraTriggerVolume : MonoBehaviour
 
     void OnDrawGizmos()
     {
-        Gizmos.color = isContains ? Color.white : Color.red;
-        Gizmos.DrawWireCube(transform.position, boxSize);
+        if (isDetecting)
+        {
+            Gizmos.color = isContains ? Color.white : Color.red;
+            Gizmos.DrawWireCube(transform.position, boxSize);
+        }
     }
 
 }

@@ -4,7 +4,7 @@ public class CameraFollow : MonoBehaviour
 {
     // Update is called once per frame
     public CameraTriggerVolume trigger;
-    public Transform target;
+    Transform target;
     public Transform cam;
 
     /// <summary>
@@ -14,9 +14,14 @@ public class CameraFollow : MonoBehaviour
 
     // TODO: Define position to the camera at the start.
 
+    void Start()
+    {
+        target = GameObject.Find("Player").transform;
+    }
+
     void Update()
     {
-        if (trigger.isContains)
+        if (trigger.isContains && trigger.isDetecting)
         {
             Vector3 vecToTarget = target.position - cam.position;
 
