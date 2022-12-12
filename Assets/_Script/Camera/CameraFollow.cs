@@ -3,7 +3,7 @@ using UnityEngine;
 public class CameraFollow : MonoBehaviour
 {
     // Update is called once per frame
-    public WedgeTrigger trigger;
+    public CameraTriggerVolume trigger;
     public Transform target;
     public Transform cam;
 
@@ -16,7 +16,7 @@ public class CameraFollow : MonoBehaviour
 
     void Update()
     {
-        if (trigger.isContains(target.position))
+        if (trigger.isContains)
         {
             Vector3 vecToTarget = target.position - cam.position;
 

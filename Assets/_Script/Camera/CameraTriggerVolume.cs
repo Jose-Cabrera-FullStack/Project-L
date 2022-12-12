@@ -8,6 +8,8 @@ public class CameraTriggerVolume : MonoBehaviour
     BoxCollider box;
     Rigidbody rb;
 
+    public bool isContains = false;
+
     void Awake()
     {
         box = GetComponent<BoxCollider>();
@@ -17,9 +19,20 @@ public class CameraTriggerVolume : MonoBehaviour
 
         rb.isKinematic = true;
     }
+
+    void OnTriggerEnter(Collider other)
+    {
+        isContains = true;
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        isContains = false;
+    }
+
     void OnDrawGizmos()
     {
-        Gizmos.color = Color.green;
+        Gizmos.color = isContains ? Color.white : Color.red;
         Gizmos.DrawWireCube(transform.position, boxSize);
     }
 
