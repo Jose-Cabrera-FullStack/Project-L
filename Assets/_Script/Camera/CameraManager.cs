@@ -5,7 +5,7 @@ public static class CameraManager
 {
     public static List<Camera> cameras = new List<Camera>();
     static Camera selectedCamera = null;
-    static int cameraIndex = 0;
+    static int cameraSelectedIndex = 0;
 
     public static void Register(Camera camera)
     {
@@ -20,20 +20,20 @@ public static class CameraManager
     public static void NextCamera()
     {
         // Select the next camera or the first one in the cameras list.
-        selectedCamera = cameraIndex + 1 < cameras.Count ? cameras[cameraIndex + 1] : cameras[0];
+        selectedCamera = cameraSelectedIndex + 1 < cameras.Count ? cameras[cameraSelectedIndex + 1] : cameras[0];
         switchCamera();
     }
 
     public static void PrevCamera()
     {
         // Select the previus camera or the last one in the cameras list.
-        selectedCamera = cameraIndex - 1 >= 0 ? cameras[cameraIndex - 1] : cameras[^1];
+        selectedCamera = cameraSelectedIndex - 1 >= 0 ? cameras[cameraSelectedIndex - 1] : cameras[^1];
         switchCamera();
     }
 
     static void switchCamera()
     {
-        cameraIndex = cameras.FindIndex(vcamera => selectedCamera == vcamera);
+        cameraSelectedIndex = cameras.FindIndex(camera => selectedCamera == camera);
         selectedCamera.depth = 10;
         changeLayout();
     }
