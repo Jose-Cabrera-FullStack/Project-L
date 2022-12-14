@@ -1,17 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PickupItem : MonoBehaviour
 {
-    Transform PickUpPoint; 
-    Transform player; 
+    Transform PickUpPoint;
+    Transform player;
 
-    public float pickUpDistance; 
+    public float pickUpDistance;
     public float forceMulti;
 
-    public bool readyToThrow; 
-    public bool itemIsPicked; 
+    public bool readyToThrow;
+    public bool itemIsPicked;
 
     Rigidbody rb;
     // Start is called before the first frame update
@@ -25,7 +23,7 @@ public class PickupItem : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKey(KeyCode.E) && itemIsPicked == true && readyToThrow)
+        if (Input.GetKey(KeyCode.E) && itemIsPicked == true && readyToThrow)
         {
             forceMulti += 300 * Time.deltaTime;
         }
@@ -34,7 +32,7 @@ public class PickupItem : MonoBehaviour
 
         if (pickUpDistance <= 10)
         {
-            if(Input.GetKeyDown(KeyCode.E) && itemIsPicked == false && PickUpPoint.childCount < 1)
+            if (Input.GetKeyDown(KeyCode.E) && itemIsPicked == false && PickUpPoint.childCount < 1)
             {
                 GetComponent<Rigidbody>().useGravity = false;
                 GetComponent<BoxCollider>().enabled = false;
@@ -50,7 +48,7 @@ public class PickupItem : MonoBehaviour
         {
             readyToThrow = true;
 
-            if(forceMulti > 10)
+            if (forceMulti > 10)
             {
                 rb.AddForce(player.transform.forward * forceMulti);
                 this.transform.parent = null;
