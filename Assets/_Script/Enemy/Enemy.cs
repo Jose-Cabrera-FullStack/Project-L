@@ -11,6 +11,8 @@ public class Enemy : MonoBehaviour
     Transform target;
     NavMeshAgent navComponent;
 
+    // TODO: Add corner trigger to follow the player when it's inside the polygon / Create a Path routine to enemy instance.
+
     // Start is called before the first frame update
     void Start()
     {
