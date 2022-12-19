@@ -718,8 +718,8 @@ GameObject:
   - component: {fileID: 1556857237}
   - component: {fileID: 1556857236}
   - component: {fileID: 1556857235}
-  - component: {fileID: 1556857240}
   - component: {fileID: 1556857241}
+  - component: {fileID: 1556857240}
   - component: {fileID: 1556857242}
   m_Layer: 0
   m_Name: Enemy
@@ -840,6 +840,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deathDistance: 5
   distanceAway: 0
+  trigger: {fileID: 1556857242}
 --- !u!195 &1556857241
 NavMeshAgent:
   m_ObjectHideFlags: 0
