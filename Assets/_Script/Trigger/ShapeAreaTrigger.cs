@@ -11,7 +11,7 @@ public class ShapeAreaTrigger : MonoBehaviour
     [SerializeField]
     enum Shape
     {
-        Wedge, // TODO
+        Wedge,
         Cone,
         Circular
     }
