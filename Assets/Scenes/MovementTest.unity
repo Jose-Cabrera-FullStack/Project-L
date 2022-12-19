@@ -838,8 +838,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 941aa788b41fa0a49b9be0b370586fbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deathDistance: 5
-  distanceAway: 0
   trigger: {fileID: 1556857242}
 --- !u!195 &1556857241
 NavMeshAgent:
@@ -875,9 +873,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0c2a4cd4a53bd448b7b38692d6dba71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shape: 2
+  shape: 1
   target: {fileID: 2049427597}
-  radiusInner: 10.88
+  radiusInner: 9.62
+  radius: 28.11
   height: 7.7
   radiusOuter: 25.85
   fovDeg: 56
