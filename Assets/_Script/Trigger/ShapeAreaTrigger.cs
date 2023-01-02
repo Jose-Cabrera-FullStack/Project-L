@@ -4,28 +4,25 @@ using UnityEditor;
 
 public class ShapeAreaTrigger : MonoBehaviour
 {
-    [SerializeField]
-    Shape shape;
-    [SerializeField]
-    Transform target;
-    [SerializeField]
-    enum Shape
+    public Shape shape;
+    public enum Shape
     {
         Wedge,
         Cone,
         Circular
     }
+    [SerializeField]
+    Transform target;
     // Serialized fields for shape-specific parameters
-    [SerializeField]
-    float radiusInner;
-    [SerializeField]
-    float radius = 1;
-    [SerializeField]
-    float height = 1;
-    [SerializeField]
-    float radiusOuter;
-    [SerializeField, Range(0, 180)]
-    float fovDeg = 45;
+
+    [SerializeField] float radiusInner;
+
+    [SerializeField] float radius = 1;
+
+    [SerializeField] float height = 1;
+
+    [SerializeField] float radiusOuter;
+    [Range(0, 180), SerializeField] float fovDeg = 45;
 
     // Calculate the field of view angle in radians
     float _fovRad => fovDeg * Mathf.Deg2Rad;
@@ -204,5 +201,35 @@ public class ShapeAreaTrigger : MonoBehaviour
         Gizmos.DrawLine(default, top);
         Gizmos.DrawLine(vLeft, top + vLeft);
         Gizmos.DrawLine(vRight, top + vRight);
+    }
+}
+
+[CustomEditor(typeof(ShapeAreaTrigger))]
+public class ShapeAreaTriggerEditor : Editor
+{
+    public override void OnInspectorGUI()
+    {
+        // Get a reference to the script component
+        ShapeAreaTrigger GUIShapeAreaTrigger = (ShapeAreaTrigger)target;
+        string[] propertyToRemove = { };
+        // Draw the properties using the PropertyDrawer
+        switch (GUIShapeAreaTrigger.shape)
+        {
+            case ShapeAreaTrigger.Shape.Wedge:
+                propertyToRemove = new string[] { "radiusInner", "radiusOuter", };
+                break;
+            case ShapeAreaTrigger.Shape.Cone:
+                propertyToRemove = new string[] { "height", "radius", };
+                break;
+            case ShapeAreaTrigger.Shape.Circular:
+                propertyToRemove = new string[] { "height", "radius", "fovDeg" };
+                break;
+            default: Debug.Log("gola"); break;
+        }
+        serializedObject.Update();
+
+        DrawPropertiesExcluding(serializedObject, propertyToRemove);
+
+        serializedObject.ApplyModifiedProperties();
     }
 }

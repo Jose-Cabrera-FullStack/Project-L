@@ -2,10 +2,10 @@ using UnityEngine;
 
 public class PlayerController1 : MonoBehaviour
 {
-    public float speed;
-    public float rotationSpeed;
-    public int jumpSpeed;
-    public float gravity = -20f;
+    [SerializeField] float speed;
+    [SerializeField] float rotationSpeed;
+    [SerializeField] int jumpSpeed;
+    [SerializeField] float gravity = -20f;
 
     CharacterController characterController;
     Vector3 moveVelocity;
@@ -37,25 +37,25 @@ public class PlayerController1 : MonoBehaviour
                 moveVelocity.y = jumpSpeed;
             }
         }
-        switchCamera();
+        // switchCamera();
 
         moveVelocity.y += gravity * Time.deltaTime;
         characterController.Move(moveVelocity * Time.deltaTime);
         transform.Rotate(turnVelocity * Time.deltaTime);
     }
 
-    void switchCamera()
-    {
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            CameraManager.NextCamera();
-        }
+    // void switchCamera()
+    // {
+    //     if (Input.GetKeyDown(KeyCode.Q))
+    //     {
+    //         CameraManager.NextCamera();
+    //     }
 
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            CameraManager.PrevCamera();
-        }
-    }
+    //     if (Input.GetKeyDown(KeyCode.E))
+    //     {
+    //         CameraManager.PrevCamera();
+    //     }
+    // }
 
     void OnControllerColliderHit(ControllerColliderHit hit)
     {
