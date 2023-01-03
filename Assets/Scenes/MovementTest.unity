@@ -875,11 +875,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shape: 1
   target: {fileID: 2049427597}
-  radiusInner: 9.62
-  radius: 28.11
-  height: 7.7
-  radiusOuter: 25.85
-  fovDeg: 56
+  radiusInner: 13.9
+  radius: 47
+  height: 11.5
+  radiusOuter: 33.04
+  fovDeg: 71.1
 --- !u!1 &1871748149
 GameObject:
   m_ObjectHideFlags: 0

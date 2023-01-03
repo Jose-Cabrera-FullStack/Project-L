@@ -24,10 +24,9 @@ public class ShapeAreaTriggerEditor : Editor
                 break;
             default: Debug.Log("gola"); break;
         }
+
+        Undo.RecordObject(GUIShapeAreaTrigger, "changed trigger");
         serializedObject.Update();
-
-        DrawPropertiesExcluding(serializedObject, propertyToRemove);
-
         serializedObject.ApplyModifiedProperties();
     }
 }
