@@ -2,10 +2,10 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public float speed;
-    public float rotationSpeed;
-    public int jumpSpeed;
-    public float gravity = -20f;
+    [SerializeField] float speed = 1f;
+    [SerializeField] float rotationSpeed = 600f;
+    [SerializeField] int jumpSpeed = 5;
+    [SerializeField] float gravity = -20f;
 
     CharacterController characterController;
     Vector3 moveVelocity;
@@ -17,9 +17,6 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         characterController = GetComponent<CharacterController>();
-        speed = 15f;
-        rotationSpeed = 600f;
-        jumpSpeed = 5;
     }
 
     void Update()
