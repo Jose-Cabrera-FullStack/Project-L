@@ -304,6 +304,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!20 &136078816 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 5982130800835739853, guid: e2b95671ccba01d40b2d9b01707a3f5a, type: 3}
+  m_PrefabInstance: {fileID: 5982130799660411394}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &188912548
 GameObject:
   m_ObjectHideFlags: 0
@@ -1236,6 +1241,14 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 1479357660}
+    - target: {fileID: 5982130800835739853, guid: e2b95671ccba01d40b2d9b01707a3f5a, type: 3}
+      propertyPath: field of view
+      value: 43
+      objectReference: {fileID: 0}
+    - target: {fileID: 5982130800835739853, guid: e2b95671ccba01d40b2d9b01707a3f5a, type: 3}
+      propertyPath: near clip plane
+      value: 3.86
+      objectReference: {fileID: 0}
     - target: {fileID: 5982130801131093402, guid: e2b95671ccba01d40b2d9b01707a3f5a, type: 3}
       propertyPath: m_Name
       value: CamManager
@@ -1246,15 +1259,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5982130801131093403, guid: e2b95671ccba01d40b2d9b01707a3f5a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.2404175
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5982130801131093403, guid: e2b95671ccba01d40b2d9b01707a3f5a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -9.8400955
+      value: -10
       objectReference: {fileID: 0}
     - target: {fileID: 5982130801131093403, guid: e2b95671ccba01d40b2d9b01707a3f5a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.278225
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5982130801131093403, guid: e2b95671ccba01d40b2d9b01707a3f5a, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1284,5 +1297,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9057065422269346410, guid: e2b95671ccba01d40b2d9b01707a3f5a, type: 3}
+      propertyPath: cam
+      value: 
+      objectReference: {fileID: 136078816}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e2b95671ccba01d40b2d9b01707a3f5a, type: 3}

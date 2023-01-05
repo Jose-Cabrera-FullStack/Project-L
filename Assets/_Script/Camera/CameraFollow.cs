@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEditor;
 
 public class CameraFollow : MonoBehaviour
 {
@@ -28,5 +29,11 @@ public class CameraFollow : MonoBehaviour
             Quaternion targetRotation = Quaternion.LookRotation(vecToTarget, transform.up);
             cam.rotation = Quaternion.Slerp(cam.rotation, targetRotation, smoothingFactor * Time.deltaTime);
         }
+    }
+
+    void OnDrawGizmos()
+    {
+        Handles.color = Color.red;
+        Gizmos.DrawSphere(new Vector3(transform.position.x, transform.position.y, transform.position.z), 1.0f);
     }
 }

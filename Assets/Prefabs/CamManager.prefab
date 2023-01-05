@@ -312,6 +312,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boxSize: {x: 15, y: 5, z: 20}
+  isDetecting: 1
   isContains: 0
 --- !u!1 &5982130800835739854
 GameObject:
@@ -325,6 +326,7 @@ GameObject:
   - component: {fileID: 5982130800835739853}
   - component: {fileID: 5982130800835739852}
   - component: {fileID: 5982130800835739858}
+  - component: {fileID: 9057065422269346410}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Camera
@@ -404,7 +406,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trigger: {fileID: 5982130800829949235}
-  target: {fileID: 0}
   cam: {fileID: 5982130800835739855}
   smoothingFactor: 1
 --- !u!114 &5982130800835739858
@@ -417,6 +418,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aeac7d01a0a4d424cb252697d699f214, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &9057065422269346410
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5982130800835739854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b287980291ddfd9439df389ca9b1dec7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &5982130801131093402
