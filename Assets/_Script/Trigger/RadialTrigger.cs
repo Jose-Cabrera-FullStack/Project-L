@@ -21,7 +21,7 @@ public class RadialTrigger : MonoBehaviour
 
     }
 
-    void OnDrawGizmos()
+    void OnDrawGizmosSelected()
     {
         Gizmos.DrawSphere(transform.position, 1);
 

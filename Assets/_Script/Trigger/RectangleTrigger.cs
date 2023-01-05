@@ -30,7 +30,7 @@ public class RectangleTrigger : MonoBehaviour
         isContains = false;
     }
 
-    void OnDrawGizmos()
+    void OnDrawGizmosSelected()
     {
         if (isDetecting)
         {

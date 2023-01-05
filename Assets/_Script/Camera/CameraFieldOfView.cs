@@ -5,7 +5,7 @@ using UnityEditor;
 public class CameraFieldOfView : MonoBehaviour
 {
 
-    void OnDrawGizmos()
+    void OnDrawGizmosSelected()
     {
         Camera cam = GetComponent<Camera>();
         // Set the Handles color to red

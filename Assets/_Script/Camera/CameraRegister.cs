@@ -1,5 +1,7 @@
 using UnityEngine;
 
+// Use with precaution "ExecuteAlways"
+[ExecuteAlways]
 public class CameraRegister : MonoBehaviour
 {
     void OnEnable()
