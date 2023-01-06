@@ -2,27 +2,49 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] float speed = 1f;
+    [SerializeField] float speed;
     [SerializeField] float rotationSpeed = 600f;
     [SerializeField] int jumpSpeed = 5;
     [SerializeField] float gravity = -20f;
+    [SerializeField] float forceMagnitude;
 
     CharacterController characterController;
+    Animator animator;
     Vector3 moveVelocity;
     Vector3 turnVelocity;
-
-    [SerializeField]
-    float forceMagnitude;
+    float walkingSpeed = 1f;
+    float runningSpeed => walkingSpeed * 2;
 
     void Start()
     {
         characterController = GetComponent<CharacterController>();
+        animator = GetComponent<Animator>();
+        speed = walkingSpeed;
     }
 
     void Update()
     {
         float hInput = Input.GetAxis("Horizontal");
         float vInput = Input.GetAxis("Vertical");
+
+        if (hInput != 0 || vInput != 0)
+        {
+            if (Input.GetKey(KeyCode.LeftShift))
+            {
+                speed = runningSpeed;
+            }
+            else
+            {
+                speed = walkingSpeed;
+            }
+
+            animator.SetBool("IsWalking", true);
+        }
+        else
+        {
+            animator.SetBool("IsWalking", false);
+        }
+
 
         if (characterController.isGrounded)
         {
@@ -31,6 +53,7 @@ public class PlayerController : MonoBehaviour
 
             if (Input.GetButtonDown("Jump"))
             {
+                animator.SetTrigger("Jump");
                 moveVelocity.y = jumpSpeed;
             }
         }
