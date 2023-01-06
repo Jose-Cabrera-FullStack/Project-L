@@ -584,7 +584,7 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 708973750}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 43c2fd5f5ca9e8141a3752da1d899df3, type: 3}
+  m_Avatar: {fileID: 9000000, guid: b7603dfcaef562f4087787ce0733397a, type: 3}
   m_Controller: {fileID: 9100000, guid: 241b320cb530e604dbcade36574b8886, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
@@ -676,6 +676,10 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: b7603dfcaef562f4087787ce0733397a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -5450526443423814944, guid: b7603dfcaef562f4087787ce0733397a, type: 3}
+      propertyPath: m_Name
+      value: Hips
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: b7603dfcaef562f4087787ce0733397a, type: 3}
       propertyPath: m_Name
