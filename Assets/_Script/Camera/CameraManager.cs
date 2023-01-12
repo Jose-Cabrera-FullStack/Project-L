@@ -43,7 +43,7 @@ public static class CameraManager
         int cameraPositioned = 0; // It count the number of cameras in the layout to be divided in normalized "y"
         int unselectedCameras = cameras.Count - 1;
         float split = (float)1 / (unselectedCameras);
-
+        //selectedCamera = camaras[selectedIndex];
         foreach (Camera camera in cameras)
         {
 
