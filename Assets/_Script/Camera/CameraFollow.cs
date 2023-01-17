@@ -27,12 +27,12 @@ public class CameraFollow : MonoBehaviour
             Vector3 vecToTarget = target.position - cam.position;
             Quaternion targetRotation = Quaternion.LookRotation(vecToTarget, transform.up);
 
-            // Vector3 eulerAngles = targetRotation.eulerAngles;
-            // // Target to the player
-            // eulerAngles.x -= 10;
-            // // Lock z axis
-            // eulerAngles.z = 0;
-            // targetRotation.eulerAngles = eulerAngles;
+            Vector3 eulerAngles = targetRotation.eulerAngles;
+            // Target to the player
+            eulerAngles.x -= 10;
+            // Lock z axis
+            eulerAngles.z = 0;
+            targetRotation.eulerAngles = eulerAngles;
 
             cam.rotation = Quaternion.Slerp(cam.rotation, targetRotation, smoothingFactor * Time.deltaTime);
         }
