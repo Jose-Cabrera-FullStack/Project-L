@@ -24,13 +24,6 @@ public static class CameraManager
         switchCamera();
     }
 
-    public static void PrevCamera()
-    {
-        // Select the previus camera or the last one in the cameras list.
-        selectedCamera = cameraSelectedIndex - 1 >= 0 ? cameras[cameraSelectedIndex - 1] : cameras[^1];
-        switchCamera();
-    }
-
     static void switchCamera()
     {
         cameraSelectedIndex = cameras.FindIndex(camera => selectedCamera == camera);

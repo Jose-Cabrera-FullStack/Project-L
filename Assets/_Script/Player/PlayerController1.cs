@@ -37,25 +37,11 @@ public class PlayerController1 : MonoBehaviour
                 moveVelocity.y = jumpSpeed;
             }
         }
-        // switchCamera();
 
         moveVelocity.y += gravity * Time.deltaTime;
         characterController.Move(moveVelocity * Time.deltaTime);
         transform.Rotate(turnVelocity * Time.deltaTime);
     }
-
-    // void switchCamera()
-    // {
-    //     if (Input.GetKeyDown(KeyCode.Q))
-    //     {
-    //         CameraManager.NextCamera();
-    //     }
-
-    //     if (Input.GetKeyDown(KeyCode.E))
-    //     {
-    //         CameraManager.PrevCamera();
-    //     }
-    // }
 
     void OnControllerColliderHit(ControllerColliderHit hit)
     {
