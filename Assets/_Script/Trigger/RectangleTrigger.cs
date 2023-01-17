@@ -16,18 +16,19 @@ public class RectangleTrigger : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         box.isTrigger = true;
         box.size = boxSize;
-
         rb.isKinematic = true;
     }
 
     void OnTriggerEnter(Collider other)
     {
-        isContains = true;
+        if (other.tag == "Player")
+            isContains = true;
     }
 
     void OnTriggerExit(Collider other)
     {
-        isContains = false;
+        if (other.tag == "Player")
+            isContains = false;
     }
 
     void OnDrawGizmosSelected()
