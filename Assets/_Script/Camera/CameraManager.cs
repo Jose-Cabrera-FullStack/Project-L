@@ -4,7 +4,7 @@ using UnityEngine;
 public static class CameraManager
 {
     public static List<Camera> cameras = new List<Camera>();
-    static Camera selectedCamera = null;
+    public static Camera selectedCamera = null;
     static int cameraSelectedIndex = 0;
 
     public static void Register(Camera camera)
