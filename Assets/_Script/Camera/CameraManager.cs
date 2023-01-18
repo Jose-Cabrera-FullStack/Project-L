@@ -47,7 +47,7 @@ public static class CameraManager
                 /// Its position is at the begining of the layout .
                 /// </summary>
                 camera.depth = 0;
-                camera.rect = new Rect(0, (float)(unselectedCameras - 1) / unselectedCameras, 0.5f, split);
+                camera.rect = new Rect((float)(unselectedCameras - 1) / unselectedCameras, 0, split, 0.5f);
 
             }
             else if (camera != selectedCamera && camera.depth == 0)
@@ -55,7 +55,7 @@ public static class CameraManager
                 /// <summary>
                 /// Split other layout positions from unseleted cameras.
                 /// </summary>
-                camera.rect = new Rect(0, split * cameraPositioned, 0.5f, split);
+                camera.rect = new Rect(split * cameraPositioned, 0, split, 0.5f);
                 cameraPositioned = cameraPositioned + 1;
             }
             else
@@ -63,7 +63,7 @@ public static class CameraManager
                 /// <summary>
                 /// It the position from the seleted camera.
                 /// </summary>
-                camera.rect = new Rect(0.5f, 0, 0.5f, 1);
+                camera.rect = new Rect(0, 0.25f, 1, 1);
             }
 
         }
