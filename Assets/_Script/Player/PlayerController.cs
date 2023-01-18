@@ -16,8 +16,6 @@ public class PlayerController : MonoBehaviour
     Vector3 cameraRight;
     Vector3 cameraForward;
 
-    [SerializeField]
-    float forceMagnitude;
     void Start()
     {
         characterController = GetComponent<CharacterController>();
@@ -29,8 +27,9 @@ public class PlayerController : MonoBehaviour
     {
         float hInput = Input.GetAxis("Horizontal");
         float vInput = Input.GetAxis("Vertical");
-        
-        if (!(CameraManager.selectedCamera is null)){
+
+        if (!(CameraManager.selectedCamera is null))
+        {
             cameraRight = CameraManager.selectedCamera.transform.right;
             cameraForward = CameraManager.selectedCamera.transform.forward;
         }
@@ -70,7 +69,7 @@ public class PlayerController : MonoBehaviour
         Vector3 cameraInputHorizontal = hInput * cameraRight;
         Vector3 cameraInputVertical = vInput * cameraForward;
         Vector3 cameraInput = speed * (cameraInputHorizontal + cameraInputVertical);
-        
+
         moveVelocity.x = cameraInput.x;
         moveVelocity.z = cameraInput.z;
 
