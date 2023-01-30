@@ -1,12 +1,14 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class Door : MonoBehaviour, IInteractable
+public class PickupInteract : MonoBehaviour, IInteractable
 {
     [SerializeField] string _interactionPrompt;
     public string InteractionPrompt => _interactionPrompt;
 
     public void Interact(Transform transform)
     {
-        Debug.Log($"Opening Door!");
+        Debug.Log($"Picking Up object!");
     }
 }
