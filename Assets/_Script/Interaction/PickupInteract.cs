@@ -4,8 +4,12 @@ using UnityEngine;
 
 public class PickupInteract : MonoBehaviour, IInteractable
 {
-    [SerializeField] string _interactionPrompt;
-    public string InteractionPrompt => _interactionPrompt;
+    public string GetInteractableText => "Pick object";
+
+    public Transform GetTransform()
+    {
+        return transform;
+    }
 
     public void Interact(Transform transform)
     {

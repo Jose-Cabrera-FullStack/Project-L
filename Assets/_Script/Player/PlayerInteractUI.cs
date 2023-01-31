@@ -1,15 +1,17 @@
 using UnityEngine;
+using TMPro;
 
 public class PlayerInteractUI : MonoBehaviour
 {
     [SerializeField] GameObject containerGameObject;
     [SerializeField] InteractorManager playerInteract;
+    [SerializeField] TextMeshProUGUI interactTextMeshProGUI;
 
     void Update()
     {
         if (playerInteract.GetInteractableObject() != null)
         {
-            Show();
+            Show(playerInteract.GetInteractableObject());
         }
         else
         {
@@ -17,9 +19,10 @@ public class PlayerInteractUI : MonoBehaviour
         }
     }
 
-    void Show()
+    void Show(IInteractable interactable)
     {
         containerGameObject.SetActive(true);
+        interactTextMeshProGUI.text = interactable.GetInteractableText;
     }
 
     void Hide()

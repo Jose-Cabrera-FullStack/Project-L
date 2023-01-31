@@ -1,5 +1,5 @@
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class InteractorManager : MonoBehaviour
 {
@@ -19,15 +19,35 @@ public class InteractorManager : MonoBehaviour
 
     public IInteractable GetInteractableObject()
     {
+        List<IInteractable> interactableList = new List<IInteractable>();
+
         Collider[] collidersArray = Physics.OverlapSphere(transform.position, interactionRange);
         foreach (Collider collider in collidersArray)
         {
             if (collider.TryGetComponent(out IInteractable interactable))
             {
-                return interactable;
+                interactableList.Add(interactable);
             }
         }
-        return null;
+
+        IInteractable closestInteractable = null;
+        foreach (IInteractable interactable in interactableList)
+        {
+            if (closestInteractable == null)
+            {
+                closestInteractable = interactable;
+            }
+            else
+            {
+                if (Vector3.Distance(transform.position, interactable.GetTransform().position) <
+                    Vector3.Distance(transform.position, closestInteractable.GetTransform().position))
+                {
+                    closestInteractable = interactable;
+                }
+            }
+        }
+
+        return closestInteractable;
     }
 
     void OnDrawGizmos()

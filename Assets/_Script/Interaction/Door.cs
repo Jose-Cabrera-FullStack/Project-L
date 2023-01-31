@@ -2,8 +2,12 @@ using UnityEngine;
 
 public class Door : MonoBehaviour, IInteractable
 {
-    [SerializeField] string _interactionPrompt;
-    public string InteractionPrompt => _interactionPrompt;
+    public string GetInteractableText => "Open Door";
+
+    public Transform GetTransform()
+    {
+        return transform;
+    }
 
     public void Interact(Transform transform)
     {

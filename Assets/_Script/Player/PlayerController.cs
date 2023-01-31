@@ -72,17 +72,17 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void OnControllerColliderHit(ControllerColliderHit hit)
-    {
-        Rigidbody rigidbody = hit.collider.attachedRigidbody;
-        forceMagnitude = 10f;
-        if (rigidbody != null)
-        {
-            Vector3 forceDirection = hit.gameObject.transform.position - transform.position;
-            forceDirection.y = 0;
-            forceDirection.Normalize();
+    // void OnControllerColliderHit(ControllerColliderHit hit)
+    // {
+    //     Rigidbody rigidbody = hit.collider.attachedRigidbody;
+    //     forceMagnitude = 10f;
+    //     if (rigidbody != null)
+    //     {
+    //         Vector3 forceDirection = hit.gameObject.transform.position - transform.position;
+    //         forceDirection.y = 0;
+    //         forceDirection.Normalize();
 
-            rigidbody.AddForceAtPosition(forceDirection * forceMagnitude, transform.position, ForceMode.Impulse);
-        }
-    }
+    //         rigidbody.AddForceAtPosition(forceDirection * forceMagnitude, transform.position, ForceMode.Impulse);
+    //     }
+    // }
 }
