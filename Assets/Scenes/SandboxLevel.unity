@@ -1022,7 +1022,6 @@ MonoBehaviour:
   rotationSpeed: 600
   jumpSpeed: 5
   gravity: -20
-  forceMagnitude: 0
 --- !u!143 &708973753
 CharacterController:
   m_ObjectHideFlags: 0
@@ -6874,7 +6873,7 @@ GameObject:
   - component: {fileID: 1898513219}
   - component: {fileID: 1898513218}
   - component: {fileID: 1898513217}
-  - component: {fileID: 1898513216}
+  - component: {fileID: 1898513222}
   m_Layer: 0
   m_Name: Push Object
   m_TagString: Pickable
@@ -6882,18 +6881,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1898513216
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1898513215}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 80a5994a38400fb48821bca11f4a106a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!54 &1898513217
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -6908,7 +6895,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!65 &1898513218
 BoxCollider:
@@ -6988,6 +6975,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1898513222
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1898513215}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfea3b4c7019bb047bb3b8f4d5eaf2fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rb: {fileID: 0}
+  force: 5
 --- !u!1 &1947109264
 GameObject:
   m_ObjectHideFlags: 0

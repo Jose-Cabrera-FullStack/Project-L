@@ -6,7 +6,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float rotationSpeed = 600f;
     [SerializeField] int jumpSpeed = 5;
     [SerializeField] float gravity = -9.8f;
-    [SerializeField] float forceMagnitude;
+    // [SerializeField] float forceMagnitude;
+    float pushForce = 2f;
+    bool isPushing = false;
+    Rigidbody attachedRigidbody;
+
 
     CharacterController characterController;
     Animator animator;
@@ -45,6 +49,7 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("IsWalking", false);
         }
 
+        HandlePushing();
 
         if (characterController.isGrounded)
         {
@@ -72,17 +77,37 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    // void OnControllerColliderHit(ControllerColliderHit hit)
-    // {
-    //     Rigidbody rigidbody = hit.collider.attachedRigidbody;
-    //     forceMagnitude = 10f;
-    //     if (rigidbody != null)
-    //     {
-    //         Vector3 forceDirection = hit.gameObject.transform.position - transform.position;
-    //         forceDirection.y = 0;
-    //         forceDirection.Normalize();
+    void HandlePushing()
+    {
+        if (attachedRigidbody == null)
+            return;
 
-    //         rigidbody.AddForceAtPosition(forceDirection * forceMagnitude, transform.position, ForceMode.Impulse);
-    //     }
-    // }
+        Vector3 forceDirection = transform.position - attachedRigidbody.transform.position;
+        forceDirection.y = 0;
+        forceDirection.Normalize();
+
+        attachedRigidbody.velocity = forceDirection * pushForce;
+    }
+
+    void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        if (hit.collider.attachedRigidbody != null && Input.GetKeyDown(KeyCode.E))
+        {
+            if (!isPushing)
+            {
+                Debug.Log($"hit.collider.attachedRigidbody:{hit.collider.attachedRigidbody}");
+                // Start pushing or pulling
+                attachedRigidbody = hit.collider.attachedRigidbody;
+                Vector3 forceDirection = attachedRigidbody.transform.position - transform.position;
+                attachedRigidbody.AddForce(forceDirection * pushForce, ForceMode.Force);
+                isPushing = true;
+            }
+            else
+            {
+                // Stop pushing or pulling
+                attachedRigidbody = null;
+                isPushing = false;
+            }
+        }
+    }
 }

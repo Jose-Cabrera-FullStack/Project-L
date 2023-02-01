@@ -1,18 +1,40 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
-public class Push : MonoBehaviour
+using System.Collections;
+public class Push : MonoBehaviour, IInteractable
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] Rigidbody rb;
+    [SerializeField] float force = 10f;
+    bool isPushing = false;
+
+    void Awake()
     {
-        
+        rb = GetComponent<Rigidbody>();
+    }
+    public string GetInteractableText => isPushing ? "Stop Push" : "Push Object";
+
+    public Transform GetTransform() => transform;
+
+
+    public void Interact(Transform interactor)
+    {
+        // isPushing = !isPushing;
+
+        // if (isPushing) StartCoroutine(ApplyForce(interactor));
+        // else StopAllCoroutines();
+
     }
 
-    // Update is called once per frame
-    void Update()
+    IEnumerator ApplyForce(Transform interactor)
     {
-        
+        while (isPushing)
+        {
+            Vector3 direction = transform.position - interactor.position;
+            rb.AddForce(direction.normalized * force, ForceMode.Impulse);
+
+            if (rb.velocity.magnitude >= force) yield break;
+            Debug.Log($"rb.velocity.magnitude: {rb.velocity.magnitude}");
+
+            yield return new WaitForFixedUpdate();
+        }
     }
 }
