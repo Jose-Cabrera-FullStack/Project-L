@@ -8,7 +8,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float gravity = -9.8f;
     // [SerializeField] float forceMagnitude;
     float pushForce = 2f;
-    bool isPushing = false;
     Rigidbody attachedRigidbody;
 
 
@@ -91,23 +90,21 @@ public class PlayerController : MonoBehaviour
 
     void OnControllerColliderHit(ControllerColliderHit hit)
     {
-        if (hit.collider.attachedRigidbody != null && Input.GetKeyDown(KeyCode.E))
+        if (hit.collider.attachedRigidbody == null)
+            return;
+
+        if (!Input.GetKeyDown(KeyCode.E))
+            return;
+
+        if (attachedRigidbody == null)
         {
-            if (!isPushing)
-            {
-                Debug.Log($"hit.collider.attachedRigidbody:{hit.collider.attachedRigidbody}");
-                // Start pushing or pulling
-                attachedRigidbody = hit.collider.attachedRigidbody;
-                Vector3 forceDirection = attachedRigidbody.transform.position - transform.position;
-                attachedRigidbody.AddForce(forceDirection * pushForce, ForceMode.Force);
-                isPushing = true;
-            }
-            else
-            {
-                // Stop pushing or pulling
-                attachedRigidbody = null;
-                isPushing = false;
-            }
+            attachedRigidbody = hit.collider.attachedRigidbody;
+            Vector3 forceDirection = attachedRigidbody.transform.position - transform.position;
+            attachedRigidbody.AddForce(forceDirection * pushForce, ForceMode.Force);
+        }
+        else
+        {
+            attachedRigidbody = null;
         }
     }
 }
