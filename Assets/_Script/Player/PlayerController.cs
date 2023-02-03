@@ -11,9 +11,10 @@ public class PlayerController : MonoBehaviour
     CharacterController characterController;
     Animator animator;
     Vector3 moveVelocity;
-    Vector3 turnVelocity;
     float walkingSpeed = 1f;
     float runningSpeed => walkingSpeed * 2;
+    Vector3 cameraRight;
+    Vector3 cameraForward;
 
     void Start()
     {
@@ -26,6 +27,12 @@ public class PlayerController : MonoBehaviour
     {
         float hInput = Input.GetAxis("Horizontal");
         float vInput = Input.GetAxis("Vertical");
+
+        if (!(CameraManager.selectedCamera is null))
+        {
+            cameraRight = CameraManager.selectedCamera.transform.right;
+            cameraForward = CameraManager.selectedCamera.transform.forward;
+        }
 
         if (hInput != 0 || vInput != 0)
         {
@@ -48,9 +55,7 @@ public class PlayerController : MonoBehaviour
 
         if (characterController.isGrounded)
         {
-            moveVelocity = transform.forward * speed * vInput;
-            turnVelocity = transform.up * rotationSpeed * hInput;
-
+            moveVelocity.y = 0;
             if (Input.GetButtonDown("Jump"))
             {
                 animator.SetTrigger("Jump");
@@ -60,8 +65,15 @@ public class PlayerController : MonoBehaviour
         switchCamera();
 
         moveVelocity.y += gravity * Time.deltaTime;
+
+        Vector3 cameraInputHorizontal = hInput * cameraRight;
+        Vector3 cameraInputVertical = vInput * cameraForward;
+        Vector3 cameraInput = speed * (cameraInputHorizontal + cameraInputVertical);
+
+        moveVelocity.x = cameraInput.x;
+        moveVelocity.z = cameraInput.z;
+
         characterController.Move(moveVelocity * Time.deltaTime);
-        transform.Rotate(turnVelocity * Time.deltaTime);
     }
 
     void switchCamera()
