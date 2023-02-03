@@ -4,7 +4,8 @@ using UnityEngine;
 public static class CameraManager
 {
     public static List<Camera> cameras = new List<Camera>();
-    static Camera selectedCamera = null;
+    // TODO: Check if this random camera selected could be a problem in the future
+    public static Camera selectedCamera = GameObject.FindGameObjectWithTag("Camera").GetComponent<Camera>();
     static int cameraSelectedIndex = 0;
 
     public static void Register(Camera camera)
