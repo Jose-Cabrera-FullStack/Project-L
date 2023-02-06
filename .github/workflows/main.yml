@@ -5,9 +5,7 @@ jobs:
     name: Build Project and Publish to itch.io ✨
     runs-on: ubuntu-latest
     # This stops builds that are in-progress once a new commit comes in
-    concurrency: 
-      group: unity-build
-      cancel-in-progress: true
+    concurrency: 1
     steps:
       # Checkout
       - name: Checkout repository
