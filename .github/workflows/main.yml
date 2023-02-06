@@ -5,19 +5,20 @@ jobs:
     name: Build Project and Publish to itch.io ✨
     runs-on: ubuntu-latest
     # This stops builds that are in-progress once a new commit comes in
-    concurrency: 1
+    concurrency: 
+      group: unity-build
+      cancel-in-progress: true
     steps:
-      # Checkout
       - name: Checkout repository
         uses: actions/checkout@v2
         with:
           lfs: true
-      # Cache
+
       - uses: actions/cache@v2
         with:
           path: Library
           key: Library
-      # Build
+
       - name: Build project
         uses: game-ci/unity-builder@v2
         env:
@@ -34,7 +35,7 @@ jobs:
        #  uses: game-ci/unity-return-license@v1
        #  if: always()
        # Output
-       - uses: actions/upload-artifact@v2
-         with:
+      - uses: actions/upload-artifact@v2
+        with:
            name: Build
            path: build
