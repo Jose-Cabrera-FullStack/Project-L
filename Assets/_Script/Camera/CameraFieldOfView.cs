@@ -1,10 +1,12 @@
 using UnityEngine;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 
 
 public class CameraFieldOfView : MonoBehaviour
 {
-
+#if UNITY_EDITOR
     void OnDrawGizmosSelected()
     {
         Camera cam = GetComponent<Camera>();
@@ -55,4 +57,5 @@ public class CameraFieldOfView : MonoBehaviour
         Handles.DrawLine(bottomLeftNear, bottomLeftFar);
         Handles.DrawLine(bottomRightNear, bottomRightFar);
     }
+#endif
 }

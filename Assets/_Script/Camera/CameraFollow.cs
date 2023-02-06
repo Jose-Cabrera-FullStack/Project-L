@@ -37,10 +37,11 @@ public class CameraFollow : MonoBehaviour
             cam.rotation = Quaternion.Slerp(cam.rotation, targetRotation, smoothingFactor * Time.deltaTime);
         }
     }
-
+#if UNITY_EDITOR
     void OnDrawGizmos()
     {
         Handles.color = Color.red;
         Gizmos.DrawSphere(new Vector3(transform.position.x, transform.position.y, transform.position.z), 1.0f);
     }
+#endif
 }

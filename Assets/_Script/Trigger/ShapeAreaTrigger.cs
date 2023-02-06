@@ -1,7 +1,8 @@
 using System;
 using UnityEngine;
+#if UNITY_EDITOR
 using UnityEditor;
-
+#endif
 public class ShapeAreaTrigger : MonoBehaviour
 {
     public Shape shape;
@@ -41,8 +42,10 @@ public class ShapeAreaTrigger : MonoBehaviour
         };
 
     // Method to set the gizmo and handle matrices
+#if UNITY_EDITOR
     void setGizmoMatrix(Matrix4x4 m) => Gizmos.matrix = Handles.matrix = m;
-
+#endif
+#if UNITY_EDITOR
     void OnDrawGizmos()
     {
         // Set the gizmo and handle matrices to the local-to-world matrix of the game object
@@ -61,6 +64,7 @@ public class ShapeAreaTrigger : MonoBehaviour
                 break;
         }
     }
+#endif
 
     bool isConeContained(Vector3 position)
     {
@@ -82,6 +86,7 @@ public class ShapeAreaTrigger : MonoBehaviour
         return Mathf.Clamp(Mathf.Acos(Vector3.Dot(a, b)), -1, 1);
     }
 
+#if UNITY_EDITOR
     void drawConeGizmo()
     {
         Vector3 top = new Vector3(0, height, 0);
@@ -140,6 +145,7 @@ public class ShapeAreaTrigger : MonoBehaviour
         drawRings(radiusInner);
 
     }
+#endif
 
     bool isCircularContained(Vector3 position)
     {
@@ -175,10 +181,10 @@ public class ShapeAreaTrigger : MonoBehaviour
         return true;
     }
 
+#if UNITY_EDITOR
     void drawWedgeGizmo()
     {
         Gizmos.color = Handles.color = isWedgeContained(target.position) ? Color.white : Color.red;
-
         Vector3 top = new Vector3(0, height, 0);
 
         float cosineThreshold = _angThresh;
@@ -190,7 +196,6 @@ public class ShapeAreaTrigger : MonoBehaviour
         // Draw the circular arcs that make up the sides of the wedge
         Handles.DrawWireArc(default, Vector3.up, vLeft, fovDeg, radius);
         Handles.DrawWireArc(top, Vector3.up, vLeft, fovDeg, radius);
-
         // Draw the rays extending from the top and bottom of the wedge to the edges of the circular arcs
         Gizmos.DrawRay(default, vLeft);
         Gizmos.DrawRay(default, vRight);
@@ -202,4 +207,5 @@ public class ShapeAreaTrigger : MonoBehaviour
         Gizmos.DrawLine(vLeft, top + vLeft);
         Gizmos.DrawLine(vRight, top + vRight);
     }
+#endif
 }
