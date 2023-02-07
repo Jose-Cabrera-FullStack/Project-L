@@ -1,8 +1,6 @@
 name: Build Project and Publish to itch.io
 on:
-  push:
-    branches:
-      -master
+  push: {branches: [main]}
 jobs:
   build:
     name: Build Project and Publish to itch.io ✨
@@ -38,7 +36,10 @@ jobs:
        #  uses: game-ci/unity-return-license@v1
        #  if: always()
        # Output
-      - uses: actions/upload-artifact@v2
-        with:
-           name: Build
-           path: build
+      - uses: josephbmanley/butler-publish-itchio-action@master
+        env:
+          BUTLER_CREDENTIALS: ${{ secrets.ITCHIO }}
+          CHANNEL: html5
+          ITCH_GAME: Project-L
+          ITCH_USER: vheztial
+          PACKAGE: build/WebGL
