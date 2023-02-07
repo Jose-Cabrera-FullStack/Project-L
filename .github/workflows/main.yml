@@ -1,6 +1,5 @@
 name: Build Project and Publish to itch.io
-on:
-  push: {branches: [main]}
+on: [push]
 jobs:
   build:
     name: Build Project and Publish to itch.io ✨
