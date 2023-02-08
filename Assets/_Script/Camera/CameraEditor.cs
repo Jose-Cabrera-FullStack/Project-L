@@ -1,10 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraEditor : MonoBehaviour
 {
-    void OnDrawGizmos()
+    void OnDrawGizmosSelected()
     {
         foreach (var camera in CameraManager.cameras)
         {
