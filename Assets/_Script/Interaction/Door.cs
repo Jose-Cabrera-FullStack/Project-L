@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class Door : MonoBehaviour, IInteractable
 {
-    public string GetInteractableText => "Open Door";
+    public string InteractableText => "Open Door";
 
-    public Transform GetTransform()
+    public Transform Transform()
     {
         return transform;
     }

@@ -10,9 +10,9 @@ public class Push : MonoBehaviour, IInteractable
     {
         rb = GetComponent<Rigidbody>();
     }
-    public string GetInteractableText => isPushing ? "Stop Push" : "Push Object";
+    public string InteractableText => isPushing ? "Stop Push" : "Push Object";
 
-    public Transform GetTransform() => transform;
+    public Transform Transform() => transform;
 
 
     public void Interact(Transform interactor)

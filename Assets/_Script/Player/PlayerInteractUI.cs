@@ -22,7 +22,7 @@ public class PlayerInteractUI : MonoBehaviour
     void Show(IInteractable interactable)
     {
         containerGameObject.SetActive(true);
-        interactTextMeshProGUI.text = interactable.GetInteractableText;
+        interactTextMeshProGUI.text = interactable.InteractableText;
     }
 
     void Hide()

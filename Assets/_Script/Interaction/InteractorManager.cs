@@ -19,31 +19,27 @@ public class InteractorManager : MonoBehaviour
 
     public IInteractable GetInteractableObject()
     {
-        List<IInteractable> interactableList = new List<IInteractable>();
+        Collider[] colliders = Physics.OverlapSphere(transform.position, interactionRange);
+        List<IInteractable> interactables = new List<IInteractable>();
 
-        Collider[] collidersArray = Physics.OverlapSphere(transform.position, interactionRange);
-        foreach (Collider collider in collidersArray)
+        foreach (Collider collider in colliders)
         {
             if (collider.TryGetComponent(out IInteractable interactable))
             {
-                interactableList.Add(interactable);
+                interactables.Add(interactable);
             }
         }
 
         IInteractable closestInteractable = null;
-        foreach (IInteractable interactable in interactableList)
+        float closestDistance = float.MaxValue;
+
+        foreach (IInteractable interactable in interactables)
         {
-            if (closestInteractable == null)
+            float distance = Vector3.Distance(transform.position, interactable.Transform().position);
+            if (distance < closestDistance)
             {
                 closestInteractable = interactable;
-            }
-            else
-            {
-                if (Vector3.Distance(transform.position, interactable.GetTransform().position) <
-                    Vector3.Distance(transform.position, closestInteractable.GetTransform().position))
-                {
-                    closestInteractable = interactable;
-                }
+                closestDistance = distance;
             }
         }
 

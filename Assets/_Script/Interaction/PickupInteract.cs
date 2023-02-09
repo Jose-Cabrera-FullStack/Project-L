@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class PickupInteract : MonoBehaviour, IInteractable
 {
-    public string GetInteractableText => "Pick object";
+    public string InteractableText => "Pick object";
 
-    public Transform GetTransform()
+    public Transform Transform()
     {
         return transform;
     }
