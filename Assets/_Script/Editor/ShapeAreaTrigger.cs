@@ -22,7 +22,7 @@ public class ShapeAreaTriggerEditor : Editor
             case ShapeAreaTrigger.Shape.Circular:
                 propertyToRemove = new string[] { "height", "radius", "fovDeg" };
                 break;
-            default: Debug.Log("gola"); break;
+            default: break;
         }
 
         Undo.RecordObject(GUIShapeAreaTrigger, "changed trigger");

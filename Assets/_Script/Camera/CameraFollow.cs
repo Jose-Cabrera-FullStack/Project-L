@@ -3,21 +3,15 @@ using UnityEditor;
 
 public class CameraFollow : MonoBehaviour
 {
-    // Update is called once per frame
-    public RectangleTrigger trigger;
-    Transform target;
-    public Transform cam;
+    [SerializeField] RectangleTrigger trigger;
+    [SerializeField] Transform target;
+    [SerializeField] Transform cam;
 
-    /// <summary>
-    /// smoothingFactor is velocity to rotate to the target.
-    /// </summary>
-    public float smoothingFactor = 1f;
-
-    // TODO: Define position to the camera at the start.
+    [Range(0f, 1f)][SerializeField] float smoothingFactor = 1f;
 
     void Start()
     {
-        target = GameObject.Find("Player").transform;
+        target = GameObject.FindWithTag("Player").transform;
     }
 
     void Update()
@@ -37,6 +31,7 @@ public class CameraFollow : MonoBehaviour
             cam.rotation = Quaternion.Slerp(cam.rotation, targetRotation, smoothingFactor * Time.deltaTime);
         }
     }
+
 #if UNITY_EDITOR
     void OnDrawGizmos()
     {

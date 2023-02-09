@@ -3,8 +3,7 @@ using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
-    [SerializeField]
-    ShapeAreaTrigger trigger;
+    [SerializeField] ShapeAreaTrigger trigger;
     Transform target;
     NavMeshAgent navComponent;
 
@@ -13,7 +12,7 @@ public class Enemy : MonoBehaviour
     void Start()
     {
         target = GameObject.FindGameObjectWithTag("Player").transform;
-        navComponent = transform.gameObject.GetComponent<NavMeshAgent>();
+        navComponent = GetComponent<NavMeshAgent>();
         trigger = FindObjectOfType<ShapeAreaTrigger>();
     }
 
@@ -22,7 +21,6 @@ public class Enemy : MonoBehaviour
         if (trigger.IsContained(target.position))
         {
             navComponent.SetDestination(target.position);
-
             navComponent.isStopped = false;
         }
         else

@@ -2269,7 +2269,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1354086797}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -154.54453, y: 6.505785, z: 252.45949}
+  m_LocalPosition: {x: -154.6, y: 6.505785, z: 252.38}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4859,6 +4859,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1354086798}
     m_Modifications:
+    - target: {fileID: 5982130800829949235, guid: e2b95671ccba01d40b2d9b01707a3f5a, type: 3}
+      propertyPath: isDetecting
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5982130800835739855, guid: e2b95671ccba01d40b2d9b01707a3f5a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2.37
+      objectReference: {fileID: 0}
+    - target: {fileID: 5982130800835739855, guid: e2b95671ccba01d40b2d9b01707a3f5a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -3.44
+      objectReference: {fileID: 0}
+    - target: {fileID: 5982130800835739855, guid: e2b95671ccba01d40b2d9b01707a3f5a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.57
+      objectReference: {fileID: 0}
     - target: {fileID: 5982130801131093402, guid: e2b95671ccba01d40b2d9b01707a3f5a, type: 3}
       propertyPath: m_Name
       value: CamManager (Tutorial)
