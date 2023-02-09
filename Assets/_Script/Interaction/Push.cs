@@ -17,11 +17,7 @@ public class Push : MonoBehaviour, IInteractable
 
     public void Interact(Transform interactor)
     {
-        // isPushing = !isPushing;
-
-        // if (isPushing) StartCoroutine(ApplyForce(interactor));
-        // else StopAllCoroutines();
-
+        Debug.Log($"Move");
     }
 
     IEnumerator ApplyForce(Transform interactor)
