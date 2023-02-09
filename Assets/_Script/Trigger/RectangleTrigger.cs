@@ -5,17 +5,17 @@ using UnityEngine;
 public class RectangleTrigger : MonoBehaviour
 {
     [SerializeField] Vector3 boxSize;
-    BoxCollider box;
+    BoxCollider boxCollider;
     Rigidbody rb;
     public bool isDetecting = true;
     public bool isContains = false;
 
     void Awake()
     {
-        box = GetComponent<BoxCollider>();
+        boxCollider = GetComponent<BoxCollider>();
         rb = GetComponent<Rigidbody>();
-        box.isTrigger = true;
-        box.size = boxSize;
+        boxCollider.isTrigger = true;
+        boxCollider.size = boxSize;
         rb.isKinematic = true;
     }
 

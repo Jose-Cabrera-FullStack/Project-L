@@ -1,34 +1,30 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class RadialTrigger : MonoBehaviour
 {
-    Transform player;
-
+    [SerializeField] Transform player;
+    [SerializeField] float radius = 10f;
+    [SerializeField] Color insideRadiusColor = Color.blue;
+    [SerializeField] Color outsideRadiusColor = Color.red;
     Vector3 playerPosition;
-    public float scalarProjection;
-    public float radius = 10f;
 
     void Start()
     {
-        player = GameObject.Find("Player").transform;
+        if (!player)
+            player = GameObject.Find("Player").transform;
     }
 
     void Update()
     {
         playerPosition = player.transform.position;
-
     }
 
     void OnDrawGizmosSelected()
     {
-        Gizmos.DrawSphere(transform.position, 1);
-
         float distance = Vector3.Distance(playerPosition, transform.position);
+        Gizmos.color = distance > radius ? outsideRadiusColor : insideRadiusColor;
 
-        Gizmos.color = distance > radius ? Color.red : Color.blue;
         Gizmos.DrawWireSphere(transform.position, radius);
-
+        Gizmos.DrawSphere(transform.position, 0.1f);
     }
 }
