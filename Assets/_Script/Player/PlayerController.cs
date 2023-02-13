@@ -26,6 +26,7 @@ public class PlayerController : MonoBehaviour
         HandleMovement();
         HandlePushing();
         SwitchCamera();
+        ClimbLedder();
     }
 
     private void HandleMovement()
@@ -94,6 +95,27 @@ public class PlayerController : MonoBehaviour
         forceDirection.Normalize();
 
         attachedRigidbody.velocity = forceDirection * pushForce;
+    }
+
+    void ClimbLedder()
+    {
+        // TODO: Y is rotationPlayer
+        Vector3 targetDirection = Quaternion.Euler(0, 0, 0) * Vector3.forward;
+        float avoidFloorDistance = 0.1f;
+        float ladderGrabDistance = 0.4f;
+        if (Physics.Raycast(
+            transform.position + Vector3.up * avoidFloorDistance,
+            targetDirection,
+            out RaycastHit raycastHit,
+            ladderGrabDistance))
+        {
+            Debug.Log($"{raycastHit.transform}");
+        }
+    }
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(transform.position, transform.position + Vector3.forward * 1.2f);
     }
 
     void OnControllerColliderHit(ControllerColliderHit hit)
