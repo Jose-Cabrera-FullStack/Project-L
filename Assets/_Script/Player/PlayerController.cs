@@ -31,10 +31,11 @@ public class PlayerController : MonoBehaviour
 
     private void HandleMovement()
     {
-        float hInput = Input.GetAxis("Horizontal");
-        float vInput = Input.GetAxis("Vertical");
+        // Get Player Input (Original Input System)
+        float playerHorizontalInput = Input.GetAxis("Horizontal");
+        float playerVerticalInput = Input.GetAxis("Vertical");
 
-        if (hInput == 0 && vInput == 0)
+        if (playerHorizontalInput == 0 && playerVerticalInput == 0)
         {
             animator.SetBool("IsWalking", false);
             return;
@@ -43,12 +44,16 @@ public class PlayerController : MonoBehaviour
         float speed = Input.GetKey(KeyCode.LeftShift) ? walkingSpeed * 2 : walkingSpeed;
         animator.SetBool("IsWalking", true);
 
-        Vector3 cameraInputHorizontal = hInput * cameraRight;
-        Vector3 cameraInputVertical = vInput * cameraForward;
-        Vector3 cameraInput = speed * (cameraInputHorizontal + cameraInputVertical);
+        Vector3 forwardRelativeHorizontalInput = playerHorizontalInput * cameraRight;
+        Vector3 rightRelativeVertticalInput = playerVerticalInput * cameraForward;
 
-        moveVelocity.x = cameraInput.x;
-        moveVelocity.z = cameraInput.z;
+
+        Vector3 cameraRelativeMovement = speed * (forwardRelativeHorizontalInput + rightRelativeVertticalInput);
+        Quaternion targetRotation = Quaternion.LookRotation(cameraRelativeMovement);
+        transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * speed);
+
+        moveVelocity.x = cameraRelativeMovement.x;
+        moveVelocity.z = cameraRelativeMovement.z;
 
         if (characterController.isGrounded)
         {
@@ -65,6 +70,7 @@ public class PlayerController : MonoBehaviour
         }
 
         characterController.Move(moveVelocity * Time.deltaTime);
+        // transform.Translate(moveVelocity, Space.World);
     }
 
 
@@ -75,6 +81,12 @@ public class PlayerController : MonoBehaviour
 
         cameraRight = CameraManager.selectedCamera.transform.right;
         cameraForward = CameraManager.selectedCamera.transform.forward;
+
+        cameraRight.y = 0;
+        cameraForward.y = 0;
+
+        cameraRight = cameraRight.normalized;
+        cameraForward = cameraForward.normalized;
     }
 
     private void SwitchCamera()
@@ -103,6 +115,7 @@ public class PlayerController : MonoBehaviour
         Vector3 targetDirection = Quaternion.Euler(0, 0, 0) * Vector3.forward;
         float avoidFloorDistance = 0.1f;
         float ladderGrabDistance = 0.4f;
+        Debug.Log($"{transform}");
         if (Physics.Raycast(
             transform.position + Vector3.up * avoidFloorDistance,
             targetDirection,
@@ -112,11 +125,7 @@ public class PlayerController : MonoBehaviour
             Debug.Log($"{raycastHit.transform}");
         }
     }
-    void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawLine(transform.position, transform.position + Vector3.forward * 1.2f);
-    }
+
 
     void OnControllerColliderHit(ControllerColliderHit hit)
     {
