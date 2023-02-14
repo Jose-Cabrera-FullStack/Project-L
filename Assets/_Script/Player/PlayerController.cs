@@ -6,7 +6,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] int jumpSpeed = 5;
     [SerializeField] float gravity = -9.8f;
     [SerializeField] float pushForce = 2f;
-    [SerializeField] bool isClimbing = false;
 
     Rigidbody attachedRigidbody;
     CharacterController characterController;
