@@ -38,14 +38,16 @@ public static class CameraManager
         int unselectedCameras = cameras.Count - 1;
         float split = (float)1 / (unselectedCameras);
 
+
         foreach (Camera camera in cameras)
         {
+            // Select only DarkRoom Cameras
 
             if (camera != selectedCamera && camera.depth != 0)
             {
                 /// <summary>
                 /// This is the camera that change state recenly to seleted to unseleted.
-                /// Its position is at the begining of the layout .
+                /// Its position is at the begining of the layout.
                 /// </summary>
                 camera.depth = 0;
                 camera.rect = new Rect((float)(unselectedCameras - 1) / unselectedCameras, 0, split, 0.5f);
