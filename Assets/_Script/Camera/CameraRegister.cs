@@ -4,13 +4,13 @@ using UnityEngine;
 [ExecuteAlways]
 public class CameraRegister : MonoBehaviour
 {
-    void OnEnable()
-    {
-        CameraManager.Register(GetComponent<Camera>());
-    }
+    // void OnEnable()
+    // {
+    //     CameraManager.Register(GetComponent<Camera>());
+    // }
 
-    void OnDisable()
-    {
-        CameraManager.Unregister(GetComponent<Camera>());
-    }
+    // void OnDisable()
+    // {
+    //     CameraManager.Unregister(GetComponent<Camera>());
+    // }
 }

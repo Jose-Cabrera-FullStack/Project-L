@@ -11,15 +11,19 @@ public static class CameraManager
     public static void Register(Camera camera)
     {
         cameras.Add(camera);
+        switchCamera();
     }
 
     public static void Unregister(Camera camera)
     {
         cameras.Remove(camera);
+        switchCamera();
     }
 
     public static void NextCamera()
     {
+        Debug.Log($"Active Cameras: {cameras.Count}");
+
         // Select the next camera or the first one in the cameras list.
         selectedCamera = cameraSelectedIndex + 1 < cameras.Count ? cameras[cameraSelectedIndex + 1] : cameras[0];
         switchCamera();
@@ -27,6 +31,7 @@ public static class CameraManager
 
     static void switchCamera()
     {
+        // cameras = cameras.FindAll(camera => camera.enabled);
         cameraSelectedIndex = cameras.FindIndex(camera => selectedCamera == camera);
         selectedCamera.depth = 10;
         changeLayout();
@@ -37,7 +42,6 @@ public static class CameraManager
         int cameraPositioned = 0; // It count the number of cameras in the layout to be divided in normalized "y"
         int unselectedCameras = cameras.Count - 1;
         float split = (float)1 / (unselectedCameras);
-
 
         foreach (Camera camera in cameras)
         {
