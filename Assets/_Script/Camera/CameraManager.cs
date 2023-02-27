@@ -22,8 +22,6 @@ public static class CameraManager
 
     public static void NextCamera()
     {
-        Debug.Log($"Active Cameras: {cameras.Count}");
-
         // Select the next camera or the first one in the cameras list.
         selectedCamera = cameraSelectedIndex + 1 < cameras.Count ? cameras[cameraSelectedIndex + 1] : cameras[0];
         switchCamera();

@@ -30,7 +30,6 @@ public class PlayerController : MonoBehaviour
 
     private void HandleMovement()
     {
-        // Get Player Input (Original Input System)
         float playerHorizontalInput = Input.GetAxis("Horizontal");
         float playerVerticalInput = Input.GetAxis("Vertical");
 
@@ -69,7 +68,6 @@ public class PlayerController : MonoBehaviour
         }
 
         characterController.Move(moveVelocity * Time.deltaTime);
-        // transform.Translate(moveVelocity, Space.World);
     }
 
 
