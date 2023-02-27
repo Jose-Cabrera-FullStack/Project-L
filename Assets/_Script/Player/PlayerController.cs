@@ -6,13 +6,13 @@ public class PlayerController : MonoBehaviour
     [SerializeField] int jumpSpeed = 5;
     [SerializeField] float gravity = -9.8f;
     [SerializeField] float pushForce = 2f;
+    [SerializeField] float rotationSpeed = 2.0f;
 
     Rigidbody attachedRigidbody;
     CharacterController characterController;
     Animator animator;
     Vector3 moveVelocity;
-    Vector3 cameraRight;
-    Vector3 cameraForward;
+    Vector3 turnVelocity;
 
     void Start()
     {
@@ -22,7 +22,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        GetCameraDirections();
+        // GetCameraDirections();
         HandleMovement();
         HandlePushing();
         SwitchCamera();
@@ -42,22 +42,14 @@ public class PlayerController : MonoBehaviour
         float speed = Input.GetKey(KeyCode.LeftShift) ? walkingSpeed * 2 : walkingSpeed;
         animator.SetBool("IsWalking", true);
 
-        Vector3 forwardRelativeHorizontalInput = playerHorizontalInput * cameraRight;
-        Vector3 rightRelativeVertticalInput = playerVerticalInput * cameraForward;
-
-
-        Vector3 cameraRelativeMovement = speed * (forwardRelativeHorizontalInput + rightRelativeVertticalInput);
-        Quaternion targetRotation = Quaternion.LookRotation(cameraRelativeMovement);
-        transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * speed);
-
-        moveVelocity.x = cameraRelativeMovement.x;
-        moveVelocity.z = cameraRelativeMovement.z;
-
         if (characterController.isGrounded)
         {
+            moveVelocity = transform.forward * speed * playerVerticalInput;
+            turnVelocity = transform.up * rotationSpeed * playerHorizontalInput;
             moveVelocity.y = 0;
             if (Input.GetButtonDown("Jump"))
             {
+                //TODO: Fix the jump 
                 animator.SetTrigger("Jump");
                 moveVelocity.y = jumpSpeed;
             }
@@ -68,23 +60,11 @@ public class PlayerController : MonoBehaviour
         }
 
         characterController.Move(moveVelocity * Time.deltaTime);
+        transform.Rotate(turnVelocity * Time.deltaTime);
     }
 
 
-    private void GetCameraDirections()
-    {
-        if (CameraManager.selectedCamera == null)
-            return;
 
-        cameraRight = CameraManager.selectedCamera.transform.right;
-        cameraForward = CameraManager.selectedCamera.transform.forward;
-
-        cameraRight.y = 0;
-        cameraForward.y = 0;
-
-        cameraRight = cameraRight.normalized;
-        cameraForward = cameraForward.normalized;
-    }
 
     private void SwitchCamera()
     {
