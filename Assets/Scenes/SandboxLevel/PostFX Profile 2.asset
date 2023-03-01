@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-7833555145626924695
+--- !u!114 &-8309685292100780813
 MonoBehaviour:
   m_ObjectHideFlags: 3
   m_CorrespondingSourceObject: {fileID: 0}
@@ -15,7 +15,7 @@ MonoBehaviour:
   active: 1
   mode:
     m_OverrideState: 1
-    m_Value: 2
+    m_Value: 0
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26,12 +26,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d7fd9488000d3734a9e00ee676215985, type: 3}
-  m_Name: PostFX Profile
+  m_Name: PostFX Profile 2
   m_EditorClassIdentifier: 
   components:
-  - {fileID: 8210114857443201477}
-  - {fileID: -7833555145626924695}
---- !u!114 &8210114857443201477
+  - {fileID: 8495688938546385178}
+  - {fileID: -8309685292100780813}
+--- !u!114 &8495688938546385178
 MonoBehaviour:
   m_ObjectHideFlags: 3
   m_CorrespondingSourceObject: {fileID: 0}
