@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -13,6 +14,24 @@ public class PlayerController : MonoBehaviour
     Animator animator;
     Vector3 moveVelocity;
     Vector3 turnVelocity;
+    float walkingSpeed = 1f;
+    float runningSpeed => walkingSpeed * 2;
+    Vector3 cameraRight;
+    Vector3 cameraForward;
+    [SerializeField]
+    Vector3 initialPosition;
+
+    void Awake()
+    {
+        initialPosition = this.transform.position;
+        GameManager.OnResetGame += handleResetGame;
+    }
+
+    private void handleResetGame()
+    {
+        transform.position = Vector3.zero;
+    }
+
 
     void Start()
     {
