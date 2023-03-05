@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -13,13 +12,11 @@ public class PlayerController : MonoBehaviour
     CharacterController characterController;
     Animator animator;
     Vector3 moveVelocity;
-    Vector3 turnVelocity;
-    float walkingSpeed = 1f;
     float runningSpeed => walkingSpeed * 2;
-    Vector3 cameraRight;
-    Vector3 cameraForward;
     [SerializeField]
     Vector3 initialPosition;
+    float targetAngle;
+    float angle;
 
     void Awake()
     {
@@ -27,9 +24,14 @@ public class PlayerController : MonoBehaviour
         GameManager.OnResetGame += handleResetGame;
     }
 
+    void OnDestroy()
+    {
+        GameManager.OnResetGame -= handleResetGame;
+    }
+
     private void handleResetGame()
     {
-        transform.position = Vector3.zero;
+        characterController.Move(initialPosition - this.transform.position);
     }
 
 
@@ -52,6 +54,11 @@ public class PlayerController : MonoBehaviour
         float playerHorizontalInput = Input.GetAxis("Horizontal");
         float playerVerticalInput = Input.GetAxis("Vertical");
 
+        Vector3 forward = CameraManager.selectedCamera.transform.forward * playerVerticalInput;
+        Vector3 right = CameraManager.selectedCamera.transform.right * playerHorizontalInput;
+
+        Vector3 movement = forward + right;
+
         if (playerHorizontalInput == 0 && playerVerticalInput == 0)
         {
             animator.SetBool("IsWalking", false);
@@ -63,9 +70,8 @@ public class PlayerController : MonoBehaviour
 
         if (characterController.isGrounded)
         {
-            moveVelocity = transform.forward * speed * playerVerticalInput;
-            turnVelocity = transform.up * rotationSpeed * playerHorizontalInput;
             moveVelocity.y = 0;
+            /* moveVelocity = transform.forward * speed * playerVerticalInput; */
             if (Input.GetButtonDown("Jump"))
             {
                 //TODO: Fix the jump 
@@ -78,8 +84,12 @@ public class PlayerController : MonoBehaviour
             moveVelocity.y += gravity * Time.deltaTime;
         }
 
-        characterController.Move(moveVelocity * Time.deltaTime);
-        transform.Rotate(turnVelocity * Time.deltaTime);
+        targetAngle = Mathf.Atan2(movement.x, movement.z) * Mathf.Rad2Deg;
+        angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref rotationSpeed, 1f, rotationSpeed);
+        movement.y += moveVelocity.y;
+
+        characterController.Move(movement * speed * Time.deltaTime);
+        transform.rotation = Quaternion.Euler(0f, targetAngle, 0f);
     }
 
 
